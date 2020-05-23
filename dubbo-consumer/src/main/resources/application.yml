@@ -1,0 +1,24 @@
+server:
+  port: 21003
+  servlet:
+    context-path: /api
+
+application:
+  #版本号
+  version: 1.0.0
+
+spring:
+  dubbo:
+    application:
+      #应用名称，每个dubbo应用的名称都是唯一的
+      name: dubbo-consumer
+    registry:
+      address: 192.168.50.50  # zookeeper注册中心的地址
+      port: 2181              # zookeeper注册中心的端口
+      protocol: zookeeper
+      subscribe: true
+      check: false
+    protocol:
+      name: dubbo
+    #注册中心
+#    address: zookeeper://192.168.50.50:2181

@@ -1,0 +1,7 @@
+server:
+  port: 21001
+
+spring:
+  application:
+    name: dubbo-provider
+

@@ -1,0 +1,7 @@
+server:
+  port: 21003
+
+spring:
+  application:
+    name: dubbo-consumer
+
