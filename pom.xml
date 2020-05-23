@@ -70,6 +70,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.github.sgroschupf</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -77,21 +83,21 @@
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
+  <!--<dependencyManagement>
     <dependencies>
-      <!--Spring Cloud的版本序列，代表了一些列组件的默认版本-->
+      &lt;!&ndash;Spring Cloud的版本序列，代表了一些列组件的默认版本&ndash;&gt;
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <!--<version>Edgware.SR5</version>-->
-        <!--<version>Finchley.SR2</version>-->
-        <!--<version>Dalston.SR1</version>-->
+        &lt;!&ndash;<version>Edgware.SR5</version>&ndash;&gt;
+        &lt;!&ndash;<version>Finchley.SR2</version>&ndash;&gt;
+        &lt;!&ndash;<version>Dalston.SR1</version>&ndash;&gt;
         <version>Greenwich.SR1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
-  </dependencyManagement>
+  </dependencyManagement>-->
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
