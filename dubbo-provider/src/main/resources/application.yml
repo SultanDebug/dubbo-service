@@ -6,7 +6,7 @@ spring:
       name: dubbo-provider
     base-package: com.hzq.dubbo # dubbo服务发布者所在的包
     registry:
-      address: 192.168.50.50 # zookeeper注册中心的地址
+      address: 192.168.215.208 # zookeeper注册中心的地址
       port: 2181       # zookeeper注册中心的端口
       protocol: zookeeper
       register: true

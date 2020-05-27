@@ -13,7 +13,7 @@ spring:
       #应用名称，每个dubbo应用的名称都是唯一的
       name: dubbo-consumer
     registry:
-      address: 192.168.50.50  # zookeeper注册中心的地址
+      address: 192.168.215.208  # zookeeper注册中心的地址
       port: 2181              # zookeeper注册中心的端口
       protocol: zookeeper
       subscribe: true

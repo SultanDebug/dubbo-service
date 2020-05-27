@@ -35,69 +35,109 @@
 
   <dependencies>
 
-    <!--spring-boot-starter-dubbo-->
+    <!--springboot整合dubbo-->
     <dependency>
-      <groupId>com.gitee.reger</groupId>
+      <groupId>io.dubbo.springboot</groupId>
       <artifactId>spring-boot-starter-dubbo</artifactId>
-      <version>1.1.3</version>
+      <version>1.0.0</version>
+      <exclusions>
+        <exclusion>     <!--此处排除掉低版本的dubbo依赖-->
+          <groupId>com.alibaba</groupId>
+          <artifactId>dubbo</artifactId>
+        </exclusion>
+        <exclusion>     <!--排除低版本zookeeper依赖-->
+          <groupId>com.101tec</groupId>
+          <artifactId>zkclient</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
-    <!-- 消费者是web项目 -->
+    <!--dubbo-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+      <version>2.6.0</version>
+      <!--排除javassist防止与spring data jpa中冲突-->
+      <!--<exclusions>
+        <exclusion>
+          <groupId>org.javassist</groupId>
+          <artifactId>javassist</artifactId>
+        </exclusion>
+      </exclusions>-->
+    </dependency>
+
+    <!--web组件-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-
-    <!-- 生产者不属于web项目，只需要引入spring-boot-starter即可 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-
-
-    <!-- 引入zookeeper，去除其中的log4j，否则会因为日志原因导致堆栈溢出 -->
-    <dependency>
-      <groupId>org.apache.zookeeper</groupId>
-      <artifactId>zookeeper</artifactId>
-      <version>3.4.10</version>
-      <!--<exclusions>
-          <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-log4j12</artifactId>
-          </exclusion>
-      </exclusions>-->
-    </dependency>
-
+    <!--zookeeper-->
     <dependency>
       <groupId>com.github.sgroschupf</groupId>
       <artifactId>zkclient</artifactId>
       <version>0.1</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>zookeeper</artifactId>
+          <groupId>org.apache.zookeeper</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+      <version>3.4.9</version>
+      <!--<exclusions>
+        <exclusion>
+          <artifactId>slf4j-log4j12</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+        </exclusion>
+      </exclusions>-->
+    </dependency>
+    <!--spring-test测试=-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <!--<version>4.3.7.RELEASE</version>-->
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-test</artifactId>
+      <!--<version>1.5.9.RELEASE</version>-->
+      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
-  <!--<dependencyManagement>
+  <dependencyManagement>
     <dependencies>
-      &lt;!&ndash;Spring Cloud的版本序列，代表了一些列组件的默认版本&ndash;&gt;
+      <!--Spring Cloud的版本序列，代表了一些列组件的默认版本-->
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        &lt;!&ndash;<version>Edgware.SR5</version>&ndash;&gt;
-        &lt;!&ndash;<version>Finchley.SR2</version>&ndash;&gt;
-        &lt;!&ndash;<version>Dalston.SR1</version>&ndash;&gt;
+        <!--<version>Edgware.SR5</version>-->
+        <!--<version>Finchley.SR2</version>-->
+        <!--<version>Dalston.SR1</version>-->
         <version>Greenwich.SR1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
-  </dependencyManagement>-->
+  </dependencyManagement>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -114,6 +154,46 @@
             <source>1.8</source>
             <target>1.8</target>
           </configuration>
+        </plugin>
+
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
         </plugin>
       </plugins>
     </pluginManagement>
