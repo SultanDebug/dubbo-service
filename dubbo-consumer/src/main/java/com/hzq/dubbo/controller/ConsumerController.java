@@ -1,9 +1,12 @@
 package com.hzq.dubbo.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.provider.ProviderInterface;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -28,6 +31,6 @@ public class ConsumerController {
 
     @GetMapping("/remote")
     public String remote(String para){
-        return providerInterface.remote(para);
+        return JSONObject.toJSONString(providerInterface.remote(para));
     }
 }

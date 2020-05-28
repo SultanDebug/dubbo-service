@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <script src="/api/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+   <input id="i1">
+   <p id="p1" >初始化文本</p>
+   <button id="bt" onclick="btn()">提交</button>
+</body>
+<script type="text/javascript">
+    function btn(){
+        /*var xmlHttpRequest = new XMLHttpRequest();
+
+        xmlHttpRequest.open("GET","/api/remote?para="+document.getElementById("i1").value,true);
+
+        xmlHttpRequest.send();
+
+        document.getElementById("p1").innerHTML = xmlHttpRequest.responseText;*/
+
+        /*xmlHttpRequest.onstatechange = function () {
+            if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
+                document.getElementById("p1").innerHTML = xmlHttpRequest.responseText;
+            }
+        };*/
+
+        $.ajax({
+            //请求方式
+            type : "GET",
+            //请求的媒体类型
+            contentType: "application/json;charset=UTF-8",
+            //请求地址
+            url : "/api/remote?para="+document.getElementById("i1").value,
+            //数据，json字符串
+            //data : JSON.stringify(list),
+            //请求成功
+            success : function(result) {
+                console.log(result);
+                document.getElementById("p1").innerHTML = result;
+            },
+            //请求失败，包含具体的错误信息
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+
+
+    }
+</script>
+</html>

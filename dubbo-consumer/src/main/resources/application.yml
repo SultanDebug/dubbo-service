@@ -8,6 +8,8 @@ application:
   version: 1.0.0
 
 spring:
+#  mvc:
+#    static-path-pattern: /**
   dubbo:
     application:
       #应用名称，每个dubbo应用的名称都是唯一的
