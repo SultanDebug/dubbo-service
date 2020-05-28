@@ -16,7 +16,11 @@
     <url>http://www.example.com</url>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
+            <artifactId>dubbo-common</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>dubbo-interface</artifactId>

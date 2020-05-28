@@ -9,26 +9,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubbo-provider</artifactId>
+    <artifactId>dubbo-common</artifactId>
 
-    <name>dubbo-provider</name>
+    <name>dubbo-common</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.hzq.dubbo</groupId>
-            <artifactId>dubbo-common</artifactId>
-            <version>1.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!--bean 工具-->
         <dependency>
-            <groupId>com.hzq.dubbo</groupId>
-            <artifactId>dubbo-interface</artifactId>
-            <version>1.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
-
     </dependencies>
 
 

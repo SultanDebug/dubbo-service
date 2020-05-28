@@ -1,6 +1,7 @@
-package com.hzq.dubbo.controller;
+package com.hzq.dubbo.api;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.hzq.dubbo.aop.UserInfo;
 import com.hzq.dubbo.provider.ProviderInterface;
 
 /**
@@ -12,6 +13,7 @@ import com.hzq.dubbo.provider.ProviderInterface;
 public class ProviderController implements ProviderInterface {
     @Override
     public String remote(String para) {
+        System.out.println(UserInfo.getUser());
         return "hello "+para;
     }
 }
