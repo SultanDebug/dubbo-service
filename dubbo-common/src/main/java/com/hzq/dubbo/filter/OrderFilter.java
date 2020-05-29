@@ -16,23 +16,15 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0.0
  * @date 2020/5/28 17:46
  */
-@Activate(group={ /*Constants.PROVIDER, */Constants.CONSUMER },order = 1)
+@Activate(group={ Constants.PROVIDER/*, Constants.CONSUMER*/ },order = 10)
 @Slf4j
-public class RPCFilter implements Filter {
+public class OrderFilter implements Filter {
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        log.info("1号拦截器开始执行");
+        log.info("2号拦截器开始执行");
         //todo 拦截逻辑
-        String method = invocation.getMethodName();
-        String name = invoker.getInterface().getName();
-        Object[] args = invocation.getArguments();
-        String ageString = JSON.toJSONString(args);
-        log.info("执行拦截逻辑:{},{},{}",method,name,ageString);
-
-        RpcContext.getContext().setAttachment("user","rpcFilter");
-
-        log.info("1号拦截器结束执行");
+        log.info("2号拦截器结束执行");
         return invoker.invoke(invocation);
     }
 }

@@ -1,1 +1,2 @@
 rPCFilter=com.hzq.dubbo.filter.RPCFilter
+orderFilter=com.hzq.dubbo.filter.OrderFilter
