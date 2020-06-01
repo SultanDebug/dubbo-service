@@ -6,6 +6,7 @@ package com.hzq.dubbo.aop;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -49,15 +50,21 @@ public class LogAopDubbo {
             ServletRequestAttributes sra = (ServletRequestAttributes) ra;
             HttpServletRequest request = sra.getRequest();*/
 
-            String user = RpcContext.getContext().getAttachment("user");
+            String token = RpcContext.getContext().getAttachment("user");
 
-            UserInfo.setUser(user);
+            UserInfo.setUser(token);
+
+//            log.info("AOP获取测试参数user:{}",RpcContext.getContext().getAttachment("user"));
 
             Object result = point.proceed();
 
             log.info("执行{}，出参为：{}",className, JSON.toJSONString(result));
 
-            UserInfo.removeUser();
+            log.info("userinfo信息:{}", JSONObject.toJSONString(UserInfo.getUserInfo()));
+
+            //调用完清除线程变量
+//            UserInfo.removeUser();
+//            RpcContext.getContext().clearAttachments();
             return result;
         }catch (Exception e){
             e.printStackTrace();

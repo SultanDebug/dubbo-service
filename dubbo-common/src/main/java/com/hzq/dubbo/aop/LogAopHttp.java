@@ -5,11 +5,13 @@ package com.hzq.dubbo.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.hzq.dubbo.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -47,7 +49,21 @@ public class LogAopHttp {
             RequestAttributes ra = RequestContextHolder.getRequestAttributes();
             ServletRequestAttributes sra = (ServletRequestAttributes) ra;
             HttpServletRequest request = sra.getRequest();
-            UserInfo.setUser(request.getHeader("user"));
+
+            String white = request.getHeader("white");
+
+            String token = request.getHeader("Authorization");
+
+            log.info("获取white参数：{}，token：{}",white, token);
+
+            if(!StringUtils.isEmpty(white) && white.equals("0")){
+                if(StringUtils.isEmpty(token) || !JwtUtils.checkToken(token)){
+                    return ResultResponse.fail("500","token参数缺失或者token校验失败");
+                }
+                UserInfo.setUser(token);
+            }else{
+                UserInfo.setAdminUser();
+            }
 
             Object result = point.proceed();
 

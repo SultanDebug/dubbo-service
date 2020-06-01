@@ -7,6 +7,7 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.alibaba.fastjson.JSON;
+import com.hzq.dubbo.aop.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -24,6 +25,10 @@ public class OrderFilter implements Filter {
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         log.info("2号拦截器开始执行");
         //todo 拦截逻辑
+//        log.info("Filter获取测试参数user:{}",RpcContext.getContext().getAttachment("user"));
+//        String token = RpcContext.getContext().getAttachment("user");
+//        log.info("获取token：{}",token);
+//        UserInfo.setUser(token);
         log.info("2号拦截器结束执行");
         return invoker.invoke(invocation);
     }

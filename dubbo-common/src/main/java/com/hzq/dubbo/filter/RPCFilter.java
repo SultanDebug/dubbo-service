@@ -7,6 +7,7 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.alibaba.fastjson.JSON;
+import com.hzq.dubbo.aop.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,7 +31,11 @@ public class RPCFilter implements Filter {
         String ageString = JSON.toJSONString(args);
         log.info("执行拦截逻辑:{},{},{}",method,name,ageString);
 
-        RpcContext.getContext().setAttachment("user","rpcFilter");
+        /**
+         * path,group,version,dubbo,token,timeout几个key有特殊处理，如在invoke时会清空、重设等
+         * 位置：ContextFilter
+         */
+        RpcContext.getContext().setAttachment("user", UserInfo.getUser());
 
         log.info("1号拦截器结束执行");
         return invoker.invoke(invocation);
