@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hzq.dubbo.constants.CommonConstants.AUTH;
+import static com.hzq.dubbo.constants.CommonConstants.WHITE;
+
 /**
  * 功能说明
  *
@@ -47,9 +50,9 @@ public class LogAopHttp {
             ServletRequestAttributes sra = (ServletRequestAttributes) ra;
             HttpServletRequest request = sra.getRequest();
 
-            String white = request.getHeader("white");
+            String white = request.getHeader(WHITE);
 
-            String token = request.getHeader("Authorization");
+            String token = request.getHeader(AUTH);
 
             log.info("获取white参数：{}，token：{}",white, token);
 

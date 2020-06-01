@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
+
 /**
  * 功能说明
  *
@@ -41,17 +43,11 @@ public class LogAopDubbo {
             log.info("执行{}，入参为：{}",className, JSONArray.toJSONString(paramsList(point)));
 
             /**
-             * threadlocal设置
+             * rpc透传参数的 threadlocal设置
              */
-            /*RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-            ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-            HttpServletRequest request = sra.getRequest();*/
-
-            String token = RpcContext.getContext().getAttachment("user");
+            String token = RpcContext.getContext().getAttachment(TOKEN);
 
             UserInfo.setUser(token);
-
-//            log.info("AOP获取测试参数user:{}",RpcContext.getContext().getAttachment("user"));
 
             Object result = point.proceed();
 

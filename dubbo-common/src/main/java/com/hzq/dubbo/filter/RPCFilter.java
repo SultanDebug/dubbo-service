@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSON;
 import com.hzq.dubbo.aop.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
+
 /**
  * 功能说明
  *
@@ -30,9 +32,9 @@ public class RPCFilter implements Filter {
 
         /**
          * path,group,version,dubbo,token,timeout几个key有特殊处理，如在invoke时会清空、重设等
-         * 位置：ContextFilter
+         * 位置：ContextFilter 透传参数key值数据清理
          */
-        RpcContext.getContext().setAttachment("user", UserInfo.getUser());
+        RpcContext.getContext().setAttachment(TOKEN, UserInfo.getUser());
 
         log.info("1号拦截器结束执行");
         return invoker.invoke(invocation);

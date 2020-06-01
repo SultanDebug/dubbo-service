@@ -33,10 +33,6 @@ public class UserInfo {
     }
 
     public static void setAdminUser() {
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.setDept("管理部门");
-//        userInfo.setName("admin");
-//        userInfo.setChName("管理员");
         UserInfo.user.set(JwtUtils.getToken("admin","管理员","管理部门"));
     }
 

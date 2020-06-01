@@ -59,6 +59,6 @@ public class ConsumerController {
         log.info("获取token解析信息："+JSONObject.toJSONString(UserInfo.getUserInfo()));
 //        RpcContext.getContext().setAttachment("token", UserInfo.getUser());
 //        RpcContext.getContext().setAttachment("user", "sultan");
-        return ResultResponse.success(JSONObject.toJSONString(providerInterface.remote(para).getData()));
+        return ResultResponse.success(providerInterface.remote(para).getData());
     }
 }
