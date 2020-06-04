@@ -3,24 +3,30 @@ server:
   servlet:
     context-path: /api
 
-application:
-  #版本号
-  version: 1.0.0
-
-spring:
+#spring:
 #  mvc:
 #    static-path-pattern: /**
-  dubbo:
-    application:
-      #应用名称，每个dubbo应用的名称都是唯一的
-      name: dubbo-consumer
-    registry:
-      address: 192.168.215.208  # zookeeper注册中心的地址
-      port: 2181              # zookeeper注册中心的端口
-      protocol: zookeeper
-      subscribe: true
-      check: false
-    protocol:
-      name: dubbo
-    #注册中心
+dubbo:
+  application:
+    #应用名称，每个dubbo应用的名称都是唯一的
+    name: dubbo-consumer
+    version: 1.0.0
+  registry:
+    # zookeeper注册中心的地址
+#    address: zookeeper://192.168.215.208:2181
+    #nacos注册中心
+    address: nacos://localhost:8848
+    parameters:
+      namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+    subscribe: true
+    check: false
+#  registry:
+#    address: 192.168.215.208  # zookeeper注册中心的地址
+#    port: 2181              # zookeeper注册中心的端口
+#    protocol: zookeeper
+#    subscribe: true
+#    check: false
+  protocol:
+    name: dubbo
+  #注册中心
 #    address: zookeeper://192.168.50.50:2181

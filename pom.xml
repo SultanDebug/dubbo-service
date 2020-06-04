@@ -35,72 +35,12 @@
   </properties>
 
   <dependencies>
-
-    <!--springboot整合dubbo-->
-    <dependency>
-      <groupId>io.dubbo.springboot</groupId>
-      <artifactId>spring-boot-starter-dubbo</artifactId>
-      <version>1.0.0</version>
-      <exclusions>
-        <exclusion>     <!--此处排除掉低版本的dubbo依赖-->
-          <groupId>com.alibaba</groupId>
-          <artifactId>dubbo</artifactId>
-        </exclusion>
-        <exclusion>     <!--排除低版本zookeeper依赖-->
-          <groupId>com.101tec</groupId>
-          <artifactId>zkclient</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!--dubbo-->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>dubbo</artifactId>
-      <version>2.6.0</version>
-      <!--排除javassist防止与spring data jpa中冲突-->
-      <!--<exclusions>
-        <exclusion>
-          <groupId>org.javassist</groupId>
-          <artifactId>javassist</artifactId>
-        </exclusion>
-      </exclusions>-->
-    </dependency>
-
     <!--web组件-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!--zookeeper-->
-    <dependency>
-      <groupId>com.github.sgroschupf</groupId>
-      <artifactId>zkclient</artifactId>
-      <version>0.1</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>zookeeper</artifactId>
-          <groupId>org.apache.zookeeper</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.zookeeper</groupId>
-      <artifactId>zookeeper</artifactId>
-      <version>3.4.9</version>
-      <!--<exclusions>
-        <exclusion>
-          <artifactId>slf4j-log4j12</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-      </exclusions>-->
-    </dependency>
     <!--spring-test测试=-->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -136,6 +76,25 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-alibaba</artifactId>
+        <version>0.9.0.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>0.9.0.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

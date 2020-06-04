@@ -2,21 +2,18 @@ package com.hzq.dubbo;
 
 import static org.junit.Assert.assertTrue;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.hzq.dubbo.provider.ProviderInterface;
-import org.junit.Ignore;
+import com.hzq.dubbo.spi.Person;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.ServiceLoader;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Unit test for simple App.
  */
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboProviderApp.class)
-@WebAppConfiguration
+@WebAppConfiguration*/
 //@Ignore
 public class ProviderTest
 {
@@ -29,6 +26,17 @@ public class ProviderTest
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
+    }
+
+    @Test
+    public void testSpi(){
+        ServiceLoader<Person> load = ServiceLoader.load(Person.class);
+        AtomicInteger i = new AtomicInteger(1);
+        load.forEach(o->{
+
+            System.out.println(o.getMsg(i.get()+""));
+            i.getAndIncrement();
+        });
     }
 
 }

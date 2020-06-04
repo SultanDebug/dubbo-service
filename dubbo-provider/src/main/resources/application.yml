@@ -1,19 +1,24 @@
 server:
   port: 21001
-spring:
-  dubbo:
-    application:
-      name: dubbo-provider
-    base-package: com.hzq.dubbo # dubbo服务发布者所在的包
-    registry:
-      address: 192.168.215.208 # zookeeper注册中心的地址
-      port: 2181       # zookeeper注册中心的端口
-      protocol: zookeeper
-      register: true
-    protocol:
-      name: dubbo
-      port: 21002
-      accesslog: true
-    provider:
-      retries: 1
-      delay: -1
+#spring:
+dubbo:
+  application:
+    name: dubbo-provider
+  scan:
+    base-packages: com.hzq.dubbo # dubbo服务发布者所在的包
+  protocol:
+    name: dubbo
+    port: 21002
+    accesslog: true
+  provider:
+    retries: 1
+    delay: -1
+#    registry:
+#      address: 192.168.215.208 # zookeeper注册中心的地址
+#      port: 2181       # zookeeper注册中心的端口
+#      protocol: zookeeper
+#      register: true
+  registry:
+    address: nacos://localhost:8848
+    parameters:
+      namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
