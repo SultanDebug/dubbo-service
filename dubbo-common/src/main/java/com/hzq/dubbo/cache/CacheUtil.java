@@ -35,6 +35,7 @@ public class CacheUtil {
         if(s==null || s.length()==0){
             System.out.println("直接调用获取数据");
             T t = supplier.get();
+            //todo 添加缓存
             return t;
         }else{
             System.out.println("缓存命中");
