@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
 
 /**
- * 功能说明
+ * rpc客户端过滤器
  *
  * @author 黄震强
  * @version 1.0.0

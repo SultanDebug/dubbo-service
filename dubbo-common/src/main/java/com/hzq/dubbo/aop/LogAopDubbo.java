@@ -21,7 +21,7 @@ import java.util.List;
 import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
 
 /**
- * 功能说明
+ * http切面
  *
  * @author 黄震强
  * @version 1.0.0
@@ -67,6 +67,15 @@ public class LogAopDubbo {
         return null;
     }
 
+    /**
+     * 参数序列化
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/6/4 10:34
+    */
     private List<Object> paramsList(ProceedingJoinPoint point){
         List<Object> params = new ArrayList<>();
 

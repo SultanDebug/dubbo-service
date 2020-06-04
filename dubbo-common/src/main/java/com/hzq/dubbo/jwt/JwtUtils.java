@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 功能说明
+ * jwt工具
  *
  * @author 黄震强
  * @version 1.0.0
@@ -32,7 +32,15 @@ public class JwtUtils {
     //指定签名的时候使用的签名算法，也就是header那部分，jjwt已经将这部分内容封装好了。
     private static SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-
+    /**
+     * token生成
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/6/4 10:38
+     */
     public static String getToken(String name, String chName, String dept) {
         Map<String, Object> map = new HashMap();
         map.put("name", name);
@@ -65,6 +73,15 @@ public class JwtUtils {
         return jwtBuilder.compact();
     }
 
+    /**
+     * token解析
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/6/4 10:38
+     */
     public static UserInfo toObj(String token){
         try {
             Claims claims = Jwts.parser()
@@ -82,6 +99,15 @@ public class JwtUtils {
         }
     }
 
+    /**
+     * 检查token有效性
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/6/4 10:38
+    */
     public static boolean checkToken(String token){
         try {
             Claims claims = Jwts.parser()

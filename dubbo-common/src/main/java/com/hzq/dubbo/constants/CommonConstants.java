@@ -1,7 +1,7 @@
 package com.hzq.dubbo.constants;
 
 /**
- * 功能说明
+ * 全局常量参数
  *
  * @author 黄震强
  * @version 1.0.0

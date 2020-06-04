@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 功能说明
+ * 全局返回类型
  *
  * @author 黄震强
  * @version 1.0.0

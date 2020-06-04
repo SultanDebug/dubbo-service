@@ -9,7 +9,7 @@ import com.hzq.dubbo.constants.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 功能说明
+ * rpc协议提供端过滤器
  *
  * @author 黄震强
  * @version 1.0.0

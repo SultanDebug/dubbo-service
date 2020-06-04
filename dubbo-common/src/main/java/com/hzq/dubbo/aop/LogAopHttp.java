@@ -22,7 +22,7 @@ import static com.hzq.dubbo.constants.CommonConstants.AUTH;
 import static com.hzq.dubbo.constants.CommonConstants.WHITE;
 
 /**
- * 功能说明
+ * rpc切面
  *
  * @author 黄震强
  * @version 1.0.0

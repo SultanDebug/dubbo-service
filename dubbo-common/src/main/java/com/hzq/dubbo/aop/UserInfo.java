@@ -4,7 +4,7 @@ import com.hzq.dubbo.jwt.JwtUtils;
 import lombok.Data;
 
 /**
- * 功能说明
+ * 全局token参数透传
  *
  * @author 黄震强
  * @version 1.0.0
