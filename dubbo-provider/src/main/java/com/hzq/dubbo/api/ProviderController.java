@@ -1,10 +1,10 @@
 package com.hzq.dubbo.api;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
 import com.hzq.dubbo.provider.ProviderInterface;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
 
 /**
  * @Description: TODO

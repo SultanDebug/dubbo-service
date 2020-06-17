@@ -13,6 +13,7 @@
     <module>dubbo-interface</module>
     <module>dubbo-provider</module>
     <module>dubbo-common</module>
+    <module>dubbo-framework</module>
   </modules>
 
   <name>dubbo-service</name>

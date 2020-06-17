@@ -1,13 +1,18 @@
 package com.hzq.dubbo.controller;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
 import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
+import com.hzq.dubbo.service.CacheEventService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +20,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -35,8 +41,14 @@ public class ConsumerController {
      * 指定被调用方地址，不走负载
      * @Reference(url = "dubbo://localhost:20005")
      */
-    @Reference(check = false/*,url = "dubbo://192.168.50.154:21002"*/)
+    @Reference(check = false/*,url = "dubbo://192.168.50.154:21002"*/,loadbalance = "consistenthash")
     private ProviderInterface providerInterface;
+
+    @Resource
+    private RedisTemplate<String,UserInfo> redisTemplate;
+
+    @Autowired
+    private CacheEventService<UserInfo> cacheEventService;
 
     @PostMapping("/login")
     public ResultResponse<String> getToken(String name, String chName, String dept){
@@ -52,6 +64,27 @@ public class ConsumerController {
 
         String token = request.getHeader("Authorization");
         return ResultResponse.success(JwtUtils.checkToken(token));
+    }
+
+    @GetMapping("/redis")
+    public ResultResponse<UserInfo> redis(){
+        UserInfo userInfo = UserInfo.getUserInfo();
+        ValueOperations<String, UserInfo> ops = redisTemplate.opsForValue();
+        ops.set("key-1",userInfo);
+
+        Boolean aBoolean = redisTemplate.hasKey("key-1");
+        log.info("redis存在key-1数据：{}",aBoolean);
+
+        UserInfo userInfo1 = ops.get("key-1");
+
+        return ResultResponse.success(userInfo1);
+    }
+
+    @GetMapping("/event")
+    public ResultResponse<UserInfo> event(){
+        UserInfo userInfo = UserInfo.getUserInfo();
+        cacheEventService.publishEvent(userInfo);
+        return ResultResponse.success(userInfo);
     }
 
     @GetMapping("/remote")

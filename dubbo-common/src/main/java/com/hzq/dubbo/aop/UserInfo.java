@@ -3,6 +3,8 @@ package com.hzq.dubbo.aop;
 import com.hzq.dubbo.jwt.JwtUtils;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 全局token参数透传
  *
@@ -11,8 +13,9 @@ import lombok.Data;
  * @date 2020/5/28 17:26
  */
 @Data
-public class UserInfo {
+public class UserInfo implements Serializable {
     private static final ThreadLocal<String> user = new InheritableThreadLocal();
+    private static final long serialVersionUID = -4999416659510988123L;
 
     private String name;
 

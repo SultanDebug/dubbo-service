@@ -18,6 +18,10 @@ import java.util.function.Supplier;
 @SuppressWarnings("unchecked")
 @Component
 public class CacheUtil {
+
+//    public static final DefaultRedisScript REMOVE_LOCK_LUA_SCRIPT = new DefaultRedisScript("if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return -1 end", Long.class);
+//    public static final DefaultRedisScript GET_LOCK_LUA_SCRIPT = new DefaultRedisScript("if redis.call('setnx', KEYS[1], ARGV[1]) == 1 then return redis.call('pexpire', KEYS[1], ARGV[2]) else return 0 end", Long.class);
+
     /**
      * 获取缓存时设置缓存
      *
