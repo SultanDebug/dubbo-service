@@ -15,7 +15,7 @@ dubbo:
     # zookeeper注册中心的地址
 #    address: zookeeper://192.168.215.208:2181
     #nacos注册中心
-    address: nacos://localhost:8848
+    address: nacos://192.168.215.208:8848
     parameters:
       namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
     subscribe: true
