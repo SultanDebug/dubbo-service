@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -17,8 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
+import static com.hzq.dubbo.constants.CommonConstants.*;
 
 /**
  * http切面
@@ -35,7 +37,12 @@ public class LogAopDubbo {
     @Around("execution(public * com.hzq.*.api..*(..))")
     public Object process(ProceedingJoinPoint point) throws Throwable {
         String className = point.getTarget().getClass().getSimpleName()+"."+point.getSignature().getName();
+        String traceId = RpcContext.getContext().getAttachment(TRACEID);
+        String spanId = UUID.randomUUID().toString().replace("-", "");
+        MDC.put(TRACEID, traceId);
+        MDC.put(SPANID, spanId);
 
+        LogTrace.setTraceid(traceId);
         try {
             /**
              * 日志打印
@@ -62,6 +69,8 @@ public class LogAopDubbo {
         }catch (Exception e){
             e.printStackTrace();
             UserInfo.removeUser();
+        }finally {
+            MDC.remove(SPANID);
         }
 
         return null;

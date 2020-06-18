@@ -1,5 +1,6 @@
 package com.hzq.dubbo.filter;
 
+import com.hzq.dubbo.aop.LogTrace;
 import org.apache.dubbo.common.Constants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.*;
@@ -8,6 +9,7 @@ import com.hzq.dubbo.aop.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.hzq.dubbo.constants.CommonConstants.TOKEN;
+import static com.hzq.dubbo.constants.CommonConstants.TRACEID;
 
 /**
  * rpc客户端过滤器
@@ -35,6 +37,7 @@ public class RPCFilter implements Filter {
          * 位置：ContextFilter 透传参数key值数据清理
          */
         RpcContext.getContext().setAttachment(TOKEN, UserInfo.getUser());
+        RpcContext.getContext().setAttachment(TRACEID, LogTrace.getTraceid());
 
         log.info("1号拦截器结束执行");
         return invoker.invoke(invocation);

@@ -14,6 +14,16 @@ public class CommonConstants {
     public static final String TOKEN = "x-rpc-token";
 
     /**
+     * traceid
+     */
+    public static final String TRACEID = "X-B3-TraceId";
+
+    /**
+     * spanid
+     */
+    public static final String SPANID = "X-B3-SpanId";
+
+    /**
      * token参数 http head值
      */
     public static final String AUTH = "Authorization";

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
@@ -17,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import static com.hzq.dubbo.constants.CommonConstants.AUTH;
-import static com.hzq.dubbo.constants.CommonConstants.WHITE;
+import static com.hzq.dubbo.constants.CommonConstants.*;
 
 /**
  * rpc切面
@@ -37,6 +38,10 @@ public class LogAopHttp {
     public Object process(ProceedingJoinPoint point) throws Throwable {
         String className = point.getTarget().getClass().getSimpleName()+"."+point.getSignature().getName();
 
+        String traceId = UUID.randomUUID().toString().replace("-", "");
+        MDC.put(TRACEID, traceId);
+
+        LogTrace.setTraceid(traceId);
         try {
             /**
              * 日志打印
@@ -70,10 +75,13 @@ public class LogAopHttp {
             log.info("执行{}，出参为：{}",className, JSON.toJSONString(result));
 
             UserInfo.removeUser();
+            LogTrace.removeTraceid();
             return result;
         }catch (Exception e){
             e.printStackTrace();
             UserInfo.removeUser();
+        }finally {
+            MDC.remove(TRACEID);
         }
 
         return null;
