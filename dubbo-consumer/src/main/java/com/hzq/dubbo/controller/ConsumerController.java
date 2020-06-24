@@ -4,6 +4,7 @@ import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
+import com.hzq.dubbo.bussinessutil.BussinessUtils;
 import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
 import com.hzq.dubbo.service.CacheEventService;
@@ -85,6 +86,12 @@ public class ConsumerController {
         UserInfo userInfo = UserInfo.getUserInfo();
         cacheEventService.publishEvent(userInfo);
         return ResultResponse.success(userInfo);
+    }
+
+    @GetMapping("/adapt")
+    public ResultResponse<String> adapt(Integer type , String para){
+        String demo = BussinessUtils.get(type).demo(para);
+        return ResultResponse.success(demo);
     }
 
     @GetMapping("/remote")
