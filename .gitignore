@@ -1,0 +1,26 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+# ignore file
+/.idea
+/dubbo-common/dubbo-common.iml
+/dubbo-common/target
+
+/dubbo-consumer/dubbo-consumer.iml
+/dubbo-consumer/target
+
+/dubbo-framework/dubbo-framework.iml
+/dubbo-framework/redis-core/redis-core.iml
+/dubbo-framework/redis-core/target
+
+/dubbo-interface/dubbo-interface.iml
+/dubbo-interface/target
+
+/dubbo-provider/dubbo-provider.iml
+/dubbo-provider/target
