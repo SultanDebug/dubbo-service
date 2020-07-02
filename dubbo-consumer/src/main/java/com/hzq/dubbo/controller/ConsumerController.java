@@ -1,14 +1,19 @@
 package com.hzq.dubbo.controller;
 
 import com.alibaba.dubbo.rpc.RpcContext;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
 import com.hzq.dubbo.bussinessutil.BussinessUtils;
+import com.hzq.dubbo.dto.TempDto;
 import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
 import com.hzq.dubbo.service.CacheEventService;
+import com.hzq.dubbo.service.TempService;
+import com.hzq.redis.cache.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +28,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Description: TODO
@@ -51,12 +57,29 @@ public class ConsumerController {
     @Autowired
     private CacheEventService<UserInfo> cacheEventService;
 
+    @Autowired
+    private CacheUtil cacheUtil;
+
+    @Autowired
+    private TempService tempService;
+
+    /**
+     * token生成
+     * @param name
+     * @param chName
+     * @param dept
+     * @return
+     */
     @PostMapping("/login")
     public ResultResponse<String> getToken(String name, String chName, String dept){
 //        RpcContext.getContext().setAttachment("token", UserInfo.getUser());
         return ResultResponse.success(JwtUtils.getToken(name,chName,dept));
     }
 
+    /**
+     * token有效性检查
+     * @return
+     */
     @GetMapping("/check")
     public ResultResponse<Boolean> checkToken(){
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
@@ -67,20 +90,34 @@ public class ConsumerController {
         return ResultResponse.success(JwtUtils.checkToken(token));
     }
 
+    /**
+     * redis测试
+     * @param key
+     * @return
+     */
     @GetMapping("/redis")
-    public ResultResponse<UserInfo> redis(){
-        UserInfo userInfo = UserInfo.getUserInfo();
-        ValueOperations<String, UserInfo> ops = redisTemplate.opsForValue();
-        ops.set("key-1",userInfo);
+    public ResultResponse<UserInfo> redis(String key){
+//        UserInfo userInfo = UserInfo.getUserInfo();
 
-        Boolean aBoolean = redisTemplate.hasKey("key-1");
-        log.info("redis存在key-1数据：{}",aBoolean);
+        UserInfo cache = cacheUtil.getCache(tempService::getUser, key, UserInfo.class, 30L);
 
-        UserInfo userInfo1 = ops.get("key-1");
+        log.info("拿到数据："+cache);
+        /*ValueOperations<String, UserInfo> ops = redisTemplate.opsForValue();
+        ops.set("key-1",userInfo);*/
 
-        return ResultResponse.success(userInfo1);
+        Boolean aBoolean = redisTemplate.hasKey(key);
+        log.info("redis存在{}数据：{}",key,aBoolean);
+
+//        UserInfo userInfo1 = ops.get("key-1");
+
+        return ResultResponse.success(cache);
     }
 
+
+    /**
+     * spring事件测试
+     * @return
+     */
     @GetMapping("/event")
     public ResultResponse<UserInfo> event(){
         UserInfo userInfo = UserInfo.getUserInfo();
@@ -88,17 +125,48 @@ public class ConsumerController {
         return ResultResponse.success(userInfo);
     }
 
+    /**
+     * 适配器测试
+     * @param type
+     * @param para
+     * @return
+     */
     @GetMapping("/adapt")
     public ResultResponse<String> adapt(Integer type , String para){
         String demo = BussinessUtils.get(type).demo(para);
         return ResultResponse.success(demo);
     }
 
+    /**
+     * rpc测试
+     * @param para
+     * @return
+     */
     @GetMapping("/remote")
     public ResultResponse<String> remote(String para){
         log.info("获取token解析信息："+JSONObject.toJSONString(UserInfo.getUserInfo()));
 //        RpcContext.getContext().setAttachment("token", UserInfo.getUser());
 //        RpcContext.getContext().setAttachment("user", "sultan");
         return ResultResponse.success(providerInterface.remote(para).getData());
+    }
+
+    public TempDto tempDto = new TempDto();
+
+    /**
+     * 并发测试 无效
+     * @param para
+     * @return
+     */
+    @GetMapping("/concur")
+    public ResultResponse<Integer> concur(Integer para){
+        Integer a = tempDto.getConCur();
+//        val.getAndAdd(para);
+
+        Integer b = a + para;
+        tempDto.setConCur(b);
+        if(!tempDto.getConCur().equals(b)){
+            log.error("获取数据：{}",tempDto.getConCur());
+        }
+        return ResultResponse.success(a);
     }
 }
