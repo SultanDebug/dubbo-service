@@ -9,6 +9,11 @@
    <input id="i1">
    <p id="p1" >初始化文本</p>
    <button id="bt" onclick="btn()">提交</button>
+    <br>
+   <input id="cid" value="测试">
+   <button id="btn" onclick="webSocket()">启动websocket</button>
+   <p id="val">这是接收值</p>
+
 </body>
 <script type="text/javascript">
     function btn(){
@@ -49,5 +54,39 @@
 
 
     }
+
+
+    function webSocket() {
+        var cid = document.getElementById("cid").value;
+
+        console.log(cid);
+
+        var ws = new WebSocket("ws://localhost:21003/api/ws/"+cid);
+
+        ws.onopen = function()
+        {
+            // Web Socket 已连接上，使用 send() 方法发送数据
+            ws.send("链接打开");
+            console.log("数据发送中...");
+        };
+
+        ws.onmessage = function (evt)
+        {
+            var received_msg = evt.data;
+
+            document.getElementById("val").innerHTML = received_msg;
+
+            console.log("数据已接收..."+received_msg);
+        };
+
+        ws.onclose = function()
+        {
+            // 关闭 websocket
+            console.log("连接已关闭...");
+        };
+
+    }
+
+
 </script>
 </html>

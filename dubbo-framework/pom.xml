@@ -17,6 +17,7 @@
     <url>http://www.example.com</url>
     <modules>
         <module>redis-core</module>
+        <module>framework-common</module>
     </modules>
 
     <dependencies>

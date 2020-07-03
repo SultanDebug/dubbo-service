@@ -1,6 +1,4 @@
-/*
- * 深圳市灵智数科有限公司版权所有.
- */
+
 package com.hzq.dubbo.service.impl;
 
 import com.alibaba.fastjson.JSON;

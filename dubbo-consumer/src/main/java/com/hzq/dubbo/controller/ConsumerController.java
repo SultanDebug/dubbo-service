@@ -11,6 +11,7 @@ import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
 import com.hzq.dubbo.service.CacheEventService;
 import com.hzq.dubbo.service.TempService;
+import com.hzq.dubbo.websocket.WebsocketServer;
 import com.hzq.redis.cache.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -168,5 +169,11 @@ public class ConsumerController {
             log.error("获取数据：{}",tempDto.getConCur());
         }
         return ResultResponse.success(a);
+    }
+
+    @GetMapping("/socket")
+    public ResultResponse<String> socket(String sid,String msg){
+        WebsocketServer.sendInfo(msg,sid);
+        return ResultResponse.success("成功");
     }
 }

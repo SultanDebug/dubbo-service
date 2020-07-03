@@ -18,6 +18,8 @@
 /dubbo-framework/dubbo-framework.iml
 /dubbo-framework/redis-core/redis-core.iml
 /dubbo-framework/redis-core/target
+/dubbo-framework/framework-common/framework-common.iml
+/dubbo-framework/framework-common/target
 
 /dubbo-interface/dubbo-interface.iml
 /dubbo-interface/target
