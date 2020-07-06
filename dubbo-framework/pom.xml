@@ -18,6 +18,7 @@
     <modules>
         <module>redis-core</module>
         <module>framework-common</module>
+        <module>mybatis-core</module>
     </modules>
 
     <dependencies>

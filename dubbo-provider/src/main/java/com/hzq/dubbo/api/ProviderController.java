@@ -16,7 +16,7 @@ import org.apache.dubbo.config.annotation.Service;
 public class ProviderController implements ProviderInterface {
     @Override
     public ResultResponse<String> remote(String para) {
-        log.info("获取token："+UserInfo.getUser());
+        log.info("获取用户信息：{} ，token：{}",UserInfo.getUserInfo(),UserInfo.getUser());
         return ResultResponse.success("hello "+para);
     }
 }

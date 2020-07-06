@@ -9,20 +9,29 @@
 
 # ignore file
 /.idea
-/dubbo-common/dubbo-common.iml
-/dubbo-common/target
+#/dubbo-common/dubbo-common.iml
+#/dubbo-common/target
+#
+#/dubbo-consumer/dubbo-consumer.iml
+#/dubbo-consumer/target
+#
+#/dubbo-framework/dubbo-framework.iml
+#/dubbo-framework/redis-core/redis-core.iml
+#/dubbo-framework/redis-core/target
+#/dubbo-framework/framework-common/framework-common.iml
+#/dubbo-framework/framework-common/target
+#
+#/dubbo-interface/dubbo-interface.iml
+#/dubbo-interface/target
+#
+#/dubbo-provider/dubbo-provider.iml
+#/dubbo-provider/target
+#
+#/dubbo-entity/dubbo-entity.iml
+#/dubbo-entity/hzq-demo/target
+#
+#/dubbo-entity/*/target
+#/dubbo-entity/**/*.iml
 
-/dubbo-consumer/dubbo-consumer.iml
-/dubbo-consumer/target
-
-/dubbo-framework/dubbo-framework.iml
-/dubbo-framework/redis-core/redis-core.iml
-/dubbo-framework/redis-core/target
-/dubbo-framework/framework-common/framework-common.iml
-/dubbo-framework/framework-common/target
-
-/dubbo-interface/dubbo-interface.iml
-/dubbo-interface/target
-
-/dubbo-provider/dubbo-provider.iml
-/dubbo-provider/target
+/**/target
+/**/*.iml
