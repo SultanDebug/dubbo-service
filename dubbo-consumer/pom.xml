@@ -32,11 +32,18 @@
             <artifactId>framework-common</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>mybatis-core</artifactId>
             <version>1.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>1.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>dubbo-interface</artifactId>

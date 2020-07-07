@@ -1,6 +1,4 @@
-/*
- * 深圳市灵智数科有限公司版权所有.
- */
+
 package com.hzq.dubbo.service.impl;
 
 import com.hzq.dubbo.User;
@@ -16,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0.0
  * @date 2020/7/6 16:39
  */
-@Service
+@Service("user2")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;

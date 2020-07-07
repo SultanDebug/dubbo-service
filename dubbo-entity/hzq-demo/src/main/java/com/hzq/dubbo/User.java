@@ -1,6 +1,4 @@
-/*
- * 深圳市灵智数科有限公司版权所有.
- */
+
 package com.hzq.dubbo;
 
 import lombok.Data;
@@ -19,7 +17,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = -8870610904728644216L;
     private Integer id;
 
-    private String user_name;
+    private String userName;
 
     private String sex;
 
