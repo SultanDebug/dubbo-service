@@ -1,6 +1,8 @@
 package com.hzq.dubbo.user.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -43,5 +45,19 @@ public class User implements Serializable {
      */
     private String address;
 
+    /**
+     * 创建人
+     */
+    private String createName;
+
+    /**
+     * 更新人
+     */
+    private String updateName;
+
+    /**
+     * 更新时间
+     */
+    private Date updateDate;
 
 }

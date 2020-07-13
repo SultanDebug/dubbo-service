@@ -75,5 +75,9 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: com.hzq.dubbo.log.MyLog
-    #在plus例默认为true 原始默认为false
+    #驼峰转换 在plus默认为true 原始默认为false
     map-underscore-to-camel-case: true
+  #增加id自增
+  global-config:
+    db-config:
+      id-type: auto

@@ -68,7 +68,7 @@ public class JwtUtils {
                 //设置签名使用的签名算法和签名使用的秘钥
                 .signWith(signatureAlgorithm, key)
                 //过期时间
-                .setExpiration(new Date(System.currentTimeMillis() + (5 * 60 * 1000)));
+                .setExpiration(new Date(System.currentTimeMillis() + (60 * 60 * 1000)));
 
         return jwtBuilder.compact();
     }
