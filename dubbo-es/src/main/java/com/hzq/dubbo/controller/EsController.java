@@ -1,6 +1,7 @@
 package com.hzq.dubbo.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
@@ -9,6 +10,8 @@ import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
+import com.hzq.dubbo.service.EsService;
+import com.hzq.dubbo.util.EsUtil;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -18,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
  *  前端控制器
- * </p>
  *
  * @author huangzq
  * @since 2020-07-07
@@ -36,6 +37,9 @@ public class EsController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private EsService esService;
 
     @PostMapping("/login")
     public ResultResponse<String> getToken(String name, String chName, String dept){
@@ -67,6 +71,11 @@ public class EsController {
     @GetMapping("/getIns")
     public ResultResponse<List<ServiceInstance>> getIns(@RequestParam String serviceName) throws NacosException {
         return ResultResponse.success(discoveryClient.getInstances(serviceName));
+    }
+
+    @GetMapping("/getIdx")
+    public ResultResponse<String> getIdx(@RequestParam String idx) {
+        return ResultResponse.success(JSON.parseObject(esService.getByIdx(idx)));
     }
 
 }
