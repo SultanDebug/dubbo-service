@@ -1,0 +1,7 @@
+server:
+  port: 21004
+
+spring:
+  application:
+    name: dubbo-es
+

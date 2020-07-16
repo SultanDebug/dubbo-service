@@ -10,7 +10,7 @@ dubbo:
   application:
     #应用名称，每个dubbo应用的名称都是唯一的
     name: dubbo-consumer
-    version: 1.0.0
+#    version: 1.0.0
   registry:
     # zookeeper注册中心的地址
 #    address: zookeeper://192.168.215.208:2181
@@ -20,6 +20,7 @@ dubbo:
       namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
     subscribe: true
     check: false
+
 #  registry:
 #    address: 192.168.215.208  # zookeeper注册中心的地址
 #    port: 2181              # zookeeper注册中心的端口
@@ -31,6 +32,13 @@ dubbo:
   #注册中心
 #    address: zookeeper://192.168.50.50:2181
 spring:
+  application:
+    name: dubbo-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.215.208:8848
+        namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
   #-------------------------------------------------- DATASOURCE---------------------------------------------------
   datasource:
     #      url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&autoReconnect=true

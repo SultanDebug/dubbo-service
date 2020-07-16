@@ -1,6 +1,13 @@
 server:
   port: 21001
-#spring:
+spring:
+  application:
+    name: dubbo-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.215.208:8848
+        namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
 dubbo:
   application:
     name: dubbo-provider

@@ -1,0 +1,34 @@
+server:
+  port: 21004
+  servlet:
+    context-path: /es
+
+#spring:
+#  mvc:
+#    static-path-pattern: /**
+dubbo:
+  application:
+    #应用名称，每个dubbo应用的名称都是唯一的
+    name: dubbo-es
+#    version: 1.0.0
+  registry:
+    address: nacos://192.168.215.208:8848
+    parameters:
+      namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+    subscribe: true
+    check: false
+
+  protocol:
+    name: dubbo
+
+spring:
+  application:
+    name: dubbo-es
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.215.208:8848
+        namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+  main:
+    allow-bean-definition-overriding: true
+

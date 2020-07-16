@@ -1,8 +1,8 @@
 package com.hzq.dubbo.filter;
 
 import com.hzq.dubbo.aop.LogTrace;
-import org.apache.dubbo.common.Constants;
 import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.registry.Constants;
 import org.apache.dubbo.rpc.*;
 import com.alibaba.fastjson.JSON;
 import com.hzq.dubbo.aop.UserInfo;
@@ -18,7 +18,7 @@ import static com.hzq.dubbo.constants.CommonConstants.TRACEID;
  * @version 1.0.0
  * @date 2020/5/28 17:46
  */
-@Activate(group={ /*Constants.PROVIDER, */Constants.CONSUMER },order = 1)
+@Activate(group={ /*Constants.PROVIDER, */Constants.CONSUMER_PROTOCOL },order = 1)
 @Slf4j
 public class RPCFilter implements Filter {
 
