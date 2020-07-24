@@ -2,6 +2,7 @@ package com.hzq.dubbo.controller;
 
 
 import com.hzq.dubbo.aop.ResultResponse;
+import com.hzq.dubbo.service.UserInfoService;
 import com.hzq.dubbo.user.entity.User;
 import com.hzq.dubbo.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private IUserService service;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(@RequestParam("id") Integer id){

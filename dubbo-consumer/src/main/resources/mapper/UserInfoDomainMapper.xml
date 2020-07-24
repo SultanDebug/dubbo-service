@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzq.dubbo.mapper.UserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="com.hzq.dubbo.UserInfo">
+        <id column="id" property="id" />
+        <result column="user_position" property="userPosition" />
+        <result column="user_relation_ship" property="userRelationShip" />
+        <result column="create_name" property="createName" />
+        <result column="update_name" property="updateName" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumnSql">
+        t.id,
+        t.user_position,
+        t.user_relation_ship,
+        t.create_name,
+        t.update_name,
+        t.update_date
+    </sql>
+
+
+    <select id="get" parameterType="integer" resultType="com.hzq.dubbo.UserInfo" useCache="true"> <!--useCache="false"-->
+        select <include refid="baseColumnSql"/> from user_info t where id=#{id}
+    </select>
+
+    <update id="update">
+        update user_info set user_position = #{position} where id=#{id}
+    </update>
+    <!--&lt;!&ndash; 增 &ndash;&gt;
+    <insert id="save" parameterType="com.hzq.dubbo.UserInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_info`
+        (
+            `user_position`,
+            `user_relation_ship`,
+            `create_name`,
+            `update_name`,
+            `update_date`
+        )
+        values
+        (
+            #{userPosition},
+            #{userRelationShip},
+            #{createName},
+            #{updateName},
+            #{updateDate}
+        )
+    </insert>
+
+    &lt;!&ndash; 删 &ndash;&gt;
+    <update id="delete">
+        update `user_info` t
+        <set>
+            t.deleted = 1
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    &lt;!&ndash; 改 &ndash;&gt;
+    <update id="update" parameterType="com.hzq.dubbo.UserInfo">
+        update `user_info` t
+        <set>
+                <if test="userPosition != null">`user_position` = #{userPosition},</if>
+                <if test="userRelationShip != null">`user_relation_ship` = #{userRelationShip},</if>
+                <if test="createName != null">`create_name` = #{createName},</if>
+                <if test="updateName != null">`update_name` = #{updateName},</if>
+                <if test="updateDate != null">`update_date` = #{updateDate}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    &lt;!&ndash; 查 &ndash;&gt;
+    <select id="get" resultMap="baseResultMap">
+        select
+        <include refid="baseColumnSql"/>
+        from `user_info` t
+        where
+        t.deleted = 0
+        and id = #{id}
+    </select>-->
+
+
+</mapper>
