@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * 功能说明
+ * mvc过滤器 日志生成日志id
  *
  * @author 黄震强
  * @version 1.0.0

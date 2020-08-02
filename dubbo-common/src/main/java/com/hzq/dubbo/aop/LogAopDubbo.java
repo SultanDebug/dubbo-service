@@ -23,7 +23,7 @@ import java.util.UUID;
 import static com.hzq.dubbo.constants.CommonConstants.*;
 
 /**
- * http切面
+ * rpc切面
  *
  * @author 黄震强
  * @version 1.0.0
