@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- * Unit test for simple App.
+ * 远程测试
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboConsumerApp.class)

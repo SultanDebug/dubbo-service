@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 功能说明
+ * 并发测试实体
  *
  * @author 黄震强
  * @version 1.0.0

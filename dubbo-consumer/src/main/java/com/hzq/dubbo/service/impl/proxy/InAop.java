@@ -19,6 +19,15 @@ import org.springframework.stereotype.Service;
 @Component
 @Slf4j
 public class InAop {
+    /**
+     * 模拟事务注解切面
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:19
+    */
     @Around(value = "@annotation(in)")
     public void inProcess(ProceedingJoinPoint point,InTransfer in){
         log.info("开始代理");

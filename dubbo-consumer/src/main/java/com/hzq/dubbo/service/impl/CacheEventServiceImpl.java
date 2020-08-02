@@ -10,7 +10,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 /**
- * 功能说明
+ * spring事件机制测试
+ * 实现接口即可
  *
  * @author 黄震强
  * @version 1.0.0
@@ -19,11 +20,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class CacheEventServiceImpl implements CacheEventService<UserInfo> , ApplicationContextAware {
     private ApplicationContext context;
+    /**
+     * 发布事件
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:17
+    */
     @Override
     public void publishEvent(UserInfo userInfo) {
         context.publishEvent(userInfo);
     }
 
+    /**
+     * 获取上下文
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:17
+    */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;

@@ -50,6 +50,10 @@ public class ConsumerController {
      * check属性检查提供方状态，同时会导致在消费方启动时提供方必须启动，否则调用报错
      * 指定被调用方地址，不走负载
      * @Reference(url = "dubbo://localhost:20005")
+     *
+     * 大智不群  大善无帮  重剑不锋  大巧不工
+     *
+     * sometimes it lasts in love , but sometimes it hurt instead
      */
     @Reference(check = false/*,url = "dubbo://192.168.50.154:21002"*/,loadbalance = "consistenthash")
     private ProviderInterface providerInterface;
@@ -97,7 +101,8 @@ public class ConsumerController {
     }
 
     /**
-     * redis测试
+     * redis包装测试
+     * 包装一个获取方法  先读缓存再穿透更新缓存
      * @param key
      * @return
      */
@@ -175,13 +180,29 @@ public class ConsumerController {
         }
         return ResultResponse.success(a);
     }
-
+    /**
+     * sockect测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:10
+    */
     @GetMapping("/socket")
     public ResultResponse<String> socket(String sid,String msg){
         WebsocketServer.sendInfo(msg,sid);
         return ResultResponse.success("成功");
     }
 
+    /**
+     * mymybatis测试   *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:10
+    */
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(Integer id){
         return ResultResponse.success(userService.getById(id));

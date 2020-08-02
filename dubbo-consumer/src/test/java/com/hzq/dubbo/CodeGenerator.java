@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Unit test for simple App.
+ * 代码生成
  */
 public class CodeGenerator
 {

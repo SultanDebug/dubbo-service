@@ -4,7 +4,7 @@ package com.hzq.dubbo.service;
 import com.hzq.dubbo.User;
 
 /**
- * 功能说明
+ * 手动mybatis代码
  *
  * @author 黄震强
  * @version 1.0.0

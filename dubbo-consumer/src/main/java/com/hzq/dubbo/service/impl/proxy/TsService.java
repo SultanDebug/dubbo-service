@@ -24,12 +24,29 @@ public class TsService {
         this.methodOne();
         this.methodTwo();
     }
-
+    /**
+     * 模拟事务包装生效方法
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:20
+    */
     @InTransfer
     public void methodOne(){
         log.info("方法One执行");
     }
 
+    /**
+     * 模拟事务包装生效方法
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:20
+     */
     @InTransfer
     public void methodTwo(){
         log.info("方法Two执行");

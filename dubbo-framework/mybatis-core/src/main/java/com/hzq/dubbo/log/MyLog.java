@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 /**
- * 功能说明
+ * mybatis日志自定义
  *
  * @author 黄震强
  * @version 1.0.0

@@ -4,7 +4,7 @@ package com.hzq.dubbo.service;
 import com.hzq.dubbo.aop.UserInfo;
 
 /**
- * 功能说明
+ * 缓存穿透业务类
  *
  * @author 黄震强
  * @version 1.0.0

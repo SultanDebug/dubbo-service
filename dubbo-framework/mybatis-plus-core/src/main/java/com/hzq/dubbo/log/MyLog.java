@@ -6,7 +6,7 @@ import org.apache.ibatis.logging.Log;
 import java.util.logging.Logger;
 
 /**
- * 功能说明
+ * mp自定义日志
  *
  * @author 黄震强
  * @version 1.0.0

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * 功能说明
+ * redis分布式锁切面代理实现
  *
  * @author 黄震强
  * @version 1.0.0

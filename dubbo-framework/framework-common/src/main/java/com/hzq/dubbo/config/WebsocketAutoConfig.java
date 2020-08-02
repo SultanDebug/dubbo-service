@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
- * 功能说明
+ * ws配置
  *
  * @author 黄震强
  * @version 1.0.0

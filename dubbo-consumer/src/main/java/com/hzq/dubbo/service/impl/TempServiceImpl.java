@@ -9,7 +9,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 
 /**
- * 功能说明
+ * 模拟缓存穿透处理
  *
  * @author 黄震强
  * @version 1.0.0

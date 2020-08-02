@@ -3,7 +3,7 @@ package com.hzq.dubbo.service.impl.proxy;
 import java.lang.annotation.*;
 
 /**
- * 功能说明
+ * 模拟transaction注解
  *
  * @author 黄震强
  * @version 1.0.0

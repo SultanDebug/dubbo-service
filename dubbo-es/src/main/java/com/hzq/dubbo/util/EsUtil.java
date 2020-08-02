@@ -21,7 +21,8 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
- * 功能说明
+ * es初始化根据
+ * es客户端链接实例 和  简单api实现
  *
  * @author 黄震强
  * @version 1.0.0

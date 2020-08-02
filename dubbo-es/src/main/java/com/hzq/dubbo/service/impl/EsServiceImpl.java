@@ -31,6 +31,15 @@ public class EsServiceImpl implements EsService {
         RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("192.168.215.208", 9200, "http")));
     }
 
+    /**
+     * 根据index获取es数据
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:56
+    */
     public String getByIdx(String idx) {
         try {
             String index = "/nba/nba/" + idx;

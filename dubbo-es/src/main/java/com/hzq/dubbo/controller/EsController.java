@@ -41,12 +41,30 @@ public class EsController {
     @Autowired
     private EsService esService;
 
+    /**
+     * 服务网关token获取
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:51
+    */
     @PostMapping("/login")
     public ResultResponse<String> getToken(String name, String chName, String dept){
 //        RpcContext.getContext().setAttachment("token", UserInfo.getUser());
         return ResultResponse.success(JwtUtils.getToken(name,chName,dept));
     }
 
+    /**
+     * 远程测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:51
+    */
     @GetMapping("/remote")
     public ResultResponse<String> remote(@RequestParam("id") Integer id){
         ResultResponse<String> remote = providerInterface.remote(id + "");
@@ -63,16 +81,43 @@ public class EsController {
         return ResultResponse.success(namingService.getAllInstances(serviceName));
     }*/
 
+    /**
+     * 获取nacos注册服务信息
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:52
+    */
     @GetMapping("/getServ")
     public ResultResponse<List<String>> getServ() throws NacosException {
         return ResultResponse.success(discoveryClient.getServices());
     }
 
+    /**
+     * 获取服务实例列表
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:52
+    */
     @GetMapping("/getIns")
     public ResultResponse<List<ServiceInstance>> getIns(@RequestParam String serviceName) throws NacosException {
         return ResultResponse.success(discoveryClient.getInstances(serviceName));
     }
 
+    /**
+     * 根据index【/nba/nba】获取一条es数据
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:52
+    */
     @GetMapping("/getIdx")
     public ResultResponse<String> getIdx(@RequestParam String idx) {
         return ResultResponse.success(JSON.parseObject(esService.getByIdx(idx)));

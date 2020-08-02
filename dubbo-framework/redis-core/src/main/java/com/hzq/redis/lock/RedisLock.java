@@ -3,7 +3,7 @@ package com.hzq.redis.lock;
 import java.lang.annotation.*;
 
 /**
- * 功能说明
+ * 分布式锁注解
  *
  * @author 黄震强
  * @version 1.0.0

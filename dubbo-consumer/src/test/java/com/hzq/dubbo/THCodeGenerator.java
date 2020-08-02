@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Unit test for simple App.
+ * 代码整理
+ * 天虹固定模板 代码生成
  */
 public class THCodeGenerator
 {

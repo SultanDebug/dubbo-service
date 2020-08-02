@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.io.Serializable;
 
 /**
- * 功能说明
+ * 注册template实例
  *
  * @author 黄震强
  * @version 1.0.0

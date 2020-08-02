@@ -12,7 +12,7 @@ import org.apache.ibatis.session.RowBounds;
 import java.util.Properties;
 
 /**
- * 插件拦截器
+ * 更新插件拦截器
  *
  * @author 黄震强
  * @version 1.0.0

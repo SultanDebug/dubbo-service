@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- *  服务类
+ *  固定模板代码插件  服务类
  * </p>
  *
  * @author huangzq

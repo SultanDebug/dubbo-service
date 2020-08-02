@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 
 /**
- * 功能说明
+ * es配置
  *
  * @author 黄震强
  * @version 1.0.0
@@ -36,6 +36,15 @@ public class EsConfig {
     private RestClientBuilder builder;
     private RestHighLevelClient client;
 
+    /**
+     * 高级客户端
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:45
+    */
     @Bean(name = "myClient")
     public RestHighLevelClient client() {
         httpHost= new HttpHost(host, port, schema);

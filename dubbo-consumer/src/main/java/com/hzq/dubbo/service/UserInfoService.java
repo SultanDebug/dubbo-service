@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hzq.dubbo.UserInfo;
 
 /**
- *  服务类
+ *  事务模拟测试
  *
  * @author huangzq
  * @since 2020-07-24

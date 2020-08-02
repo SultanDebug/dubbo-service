@@ -4,7 +4,7 @@ package com.hzq.dubbo.spi;
 import com.hzq.dubbo.aop.ResultResponse;
 
 /**
- * 功能说明
+ * spi注册bean 业务2
  *
  * @author 黄震强
  * @version 1.0.0

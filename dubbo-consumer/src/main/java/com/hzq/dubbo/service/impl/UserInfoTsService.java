@@ -24,11 +24,29 @@ public class UserInfoTsService {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 事务传播机制测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:21
+    */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updateUser(Integer id ,String para){
         userMapper.updateUser(id,para);
     }
 
+    /**
+     * 事务传播机制测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:21
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updateUserInfo(Integer id ,String para){
         userInfoMapper.update(id,para);

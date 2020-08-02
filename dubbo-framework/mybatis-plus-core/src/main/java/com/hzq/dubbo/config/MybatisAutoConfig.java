@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
- * 功能说明
+ * mp配置
  *
  * @author 黄震强
  * @version 1.0.0

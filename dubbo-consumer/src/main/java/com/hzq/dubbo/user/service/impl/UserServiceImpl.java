@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ *  固定模板代码插件  服务实现类
  * </p>
  *
  * @author huangzq

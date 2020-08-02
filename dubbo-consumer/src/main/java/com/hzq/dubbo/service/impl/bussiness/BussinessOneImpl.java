@@ -7,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 /**
- * 功能说明
+ * 适配器一号业务
  *
  * @author 黄震强
  * @version 1.0.0

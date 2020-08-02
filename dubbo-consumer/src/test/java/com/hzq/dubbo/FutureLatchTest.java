@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * 功能说明
+ * 并发测试
  *
  * @author 黄震强
  * @version 1.0.0

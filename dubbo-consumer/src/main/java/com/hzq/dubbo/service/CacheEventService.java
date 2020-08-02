@@ -2,7 +2,7 @@
 package com.hzq.dubbo.service;
 
 /**
- * 功能说明
+ * spring事件机制
  *
  * @author 黄震强
  * @version 1.0.0

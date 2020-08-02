@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 
+ * 自动代码插件  事务测试实体
  *
  * @author huangzq
  * @since 2020-07-24
@@ -47,6 +48,7 @@ public class UserInfo implements Serializable {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateDate;
 
 

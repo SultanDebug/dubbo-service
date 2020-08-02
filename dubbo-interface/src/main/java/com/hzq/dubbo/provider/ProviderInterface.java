@@ -9,4 +9,6 @@ import com.hzq.dubbo.aop.ResultResponse;
  */
 public interface ProviderInterface {
     ResultResponse<String> remote(String para);
+
+    ResultResponse<String> remoteSPI(String para);
 }

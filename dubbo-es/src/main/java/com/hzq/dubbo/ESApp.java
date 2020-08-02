@@ -11,7 +11,7 @@ import java.util.UUID;
 import static com.hzq.dubbo.constants.CommonConstants.TRACEID;
 
 /**
- * Hello world!
+ * es服务
  *
  */
 @SpringBootApplication(scanBasePackages = "com.hzq.*")
