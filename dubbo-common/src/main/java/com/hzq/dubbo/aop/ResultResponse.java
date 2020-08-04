@@ -18,21 +18,21 @@ public class ResultResponse<T> implements Serializable {
     private String msg;
     private T data;
 
-    public static ResultResponse success(){
-        ResultResponse res = new ResultResponse();
+    public static<T> ResultResponse<T> success(){
+        ResultResponse<T> res = new ResultResponse<T>();
         res.setCode("200");
         return res;
     }
 
-    public static ResultResponse success(Object data){
-        ResultResponse res = new ResultResponse();
+    public static<T> ResultResponse<T> success(T data){
+        ResultResponse<T> res = new ResultResponse<T>();
         res.setCode("200");
         res.setData(data);
         return res;
     }
 
-    public static ResultResponse fail(String code ,String msg){
-        ResultResponse res = new ResultResponse();
+    public static<T> ResultResponse<T> fail(String code ,String msg){
+        ResultResponse<T> res = new ResultResponse<T>();
         res.setCode(code);
         res.setMsg(msg);
         return res;
