@@ -94,7 +94,7 @@ public class UserInfoController {
      * @date 2020/8/2 11:12
      */
     @GetMapping("/ts")
-    public ResultResponse<Boolean> transaction(@RequestParam("id") Integer id,@RequestParam("para") String para){
+    public ResultResponse<String> transaction(@RequestParam("id") Integer id,@RequestParam("para") String para){
         return ResultResponse.success(userInfoService.transactionValid(id,para));
     }
 
