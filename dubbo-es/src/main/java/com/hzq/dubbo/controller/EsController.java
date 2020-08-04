@@ -119,7 +119,7 @@ public class EsController {
      * @date 2020/8/2 11:52
     */
     @GetMapping("/getIdx")
-    public ResultResponse<String> getIdx(@RequestParam String idx) {
+    public ResultResponse<Object> getIdx(@RequestParam String idx) {
         return ResultResponse.success(JSON.parseObject(esService.getByIdx(idx)));
     }
 
