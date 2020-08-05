@@ -13,6 +13,7 @@ import com.hzq.dubbo.provider.ProviderInterface;
 import com.hzq.dubbo.service.CacheEventService;
 import com.hzq.dubbo.service.TempService;
 import com.hzq.dubbo.service.UserService;
+import com.hzq.dubbo.service.impl.mq.RabbitService;
 import com.hzq.dubbo.websocket.WebsocketServer;
 import com.hzq.redis.cache.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +73,9 @@ public class ConsumerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RabbitService rabbitService;
 
     /**
      * token生成
@@ -206,5 +210,19 @@ public class ConsumerController {
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(Integer id){
         return ResultResponse.success(userService.getById(id));
+    }
+
+    /**
+     * 发布mq消息
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/5 15:37
+    */
+    @GetMapping("/publishMsg")
+    public ResultResponse<User> publishMsg(Integer id){
+        return ResultResponse.success(rabbitService.publishMsg(id));
     }
 }

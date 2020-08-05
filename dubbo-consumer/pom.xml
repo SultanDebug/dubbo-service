@@ -46,6 +46,12 @@
 
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
+            <artifactId>rabbitmq-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
             <artifactId>dubbo-interface</artifactId>
             <version>1.0</version>
         </dependency>
