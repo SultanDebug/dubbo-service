@@ -2,6 +2,7 @@ package com.hzq.dubbo.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -72,7 +73,7 @@ public class LogAopHttp {
 
             Object result = point.proceed();
 
-            log.info("执行{}，出参为：{}",className, JSON.toJSONString(result));
+            log.info("执行{}，出参为：{}",className, JSONObject.toJSONString(result));
 
             UserInfo.removeUser();
             LogTrace.removeTraceid();

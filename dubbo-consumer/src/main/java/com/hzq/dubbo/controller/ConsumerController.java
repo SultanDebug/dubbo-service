@@ -7,10 +7,13 @@ import com.hzq.dubbo.User;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
 import com.hzq.dubbo.bussinessutil.BussinessUtils;
+import com.hzq.dubbo.config.Person;
+import com.hzq.dubbo.dto.PersonDTO;
 import com.hzq.dubbo.dto.TempDto;
 import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
 import com.hzq.dubbo.service.CacheEventService;
+import com.hzq.dubbo.service.ConfigService;
 import com.hzq.dubbo.service.TempService;
 import com.hzq.dubbo.service.UserService;
 import com.hzq.dubbo.service.impl.mq.RabbitService;
@@ -19,7 +22,9 @@ import com.hzq.redis.cache.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -76,6 +81,9 @@ public class ConsumerController {
 
     @Autowired
     private RabbitService rabbitService;
+
+    @Autowired
+    private ConfigService configService;
 
     /**
      * token生成
@@ -224,5 +232,22 @@ public class ConsumerController {
     @GetMapping("/publishMsg")
     public ResultResponse<User> publishMsg(Integer id){
         return ResultResponse.success(rabbitService.publishMsg(id));
+    }
+
+    /**
+     * 获取配置
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/5 15:37
+     */
+    @GetMapping("/person")
+    public ResultResponse<PersonDTO> person(){
+        Person person = configService.getPerson();
+        PersonDTO personDTO = new PersonDTO();
+        BeanUtils.copyProperties(person,personDTO);
+        return ResultResponse.success(personDTO);
     }
 }

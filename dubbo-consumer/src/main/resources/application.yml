@@ -34,11 +34,17 @@ dubbo:
 spring:
   application:
     name: dubbo-consumer
+  profiles:
+    active: dev
+    include: main
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.215.208:8848
         namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+---
+spring:
+  profiles: main
   #-------------------------------------------------- DATASOURCE---------------------------------------------------
   datasource:
     #      url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&autoReconnect=true
@@ -76,12 +82,13 @@ spring:
         max-wait: -1
         max-idle: 8
         min-idle: 0
+#---------------------------------------------------rabbit-------------------------------------------------------
   rabbitmq:
     host: 192.168.215.208
     port: 5672
     username: admin
     password: 123456
-#    virtual-host: myhost
+#    virtual-host: /myhost
 #mybatis:
 #  configuration:
 #    log-impl: com.hzq.dubbo.log.MyLog
@@ -95,3 +102,18 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+#------------------------------------------------自定义参数，实时加载-------------------------------------------------------------
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health
+
+config:
+  person:
+    name: 黄震强
+    age: 18
+    role:
+      - 管理员
+      - 开发
