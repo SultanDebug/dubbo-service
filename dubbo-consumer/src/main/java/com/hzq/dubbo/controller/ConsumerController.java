@@ -1,43 +1,16 @@
 package com.hzq.dubbo.controller;
 
-import com.alibaba.dubbo.rpc.RpcContext;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hzq.dubbo.User;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.aop.UserInfo;
-import com.hzq.dubbo.bussinessutil.BussinessUtils;
-import com.hzq.dubbo.config.Person;
-import com.hzq.dubbo.dto.PersonDTO;
-import com.hzq.dubbo.dto.TempDto;
-import com.hzq.dubbo.jwt.JwtUtils;
 import com.hzq.dubbo.provider.ProviderInterface;
-import com.hzq.dubbo.service.CacheEventService;
-import com.hzq.dubbo.service.ConfigService;
-import com.hzq.dubbo.service.TempService;
 import com.hzq.dubbo.service.UserService;
-import com.hzq.dubbo.service.impl.mq.RabbitService;
-import com.hzq.dubbo.websocket.WebsocketServer;
-import com.hzq.redis.cache.CacheUtil;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Description: TODO
@@ -64,101 +37,10 @@ public class ConsumerController {
     @Reference(check = false/*,url = "dubbo://192.168.50.154:21002"*/,loadbalance = "consistenthash")
     private ProviderInterface providerInterface;
 
-    @Resource
-    private RedisTemplate<String,UserInfo> redisTemplate;
-
-    @Autowired
-    private CacheEventService<UserInfo> cacheEventService;
-
-    @Autowired
-    private CacheUtil cacheUtil;
-
-    @Autowired
-    private TempService tempService;
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RabbitService rabbitService;
-
-    @Autowired
-    private ConfigService configService;
-
-    /**
-     * token生成
-     * @param name
-     * @param chName
-     * @param dept
-     * @return
-     */
-    @PostMapping("/login")
-    public ResultResponse<String> getToken(String name, String chName, String dept){
-//        RpcContext.getContext().setAttachment("token", UserInfo.getUser());
-        return ResultResponse.success(JwtUtils.getToken(name,chName,dept));
-    }
-
-    /**
-     * token有效性检查
-     * @return
-     */
-    @GetMapping("/check")
-    public ResultResponse<Boolean> checkToken(){
-        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-        HttpServletRequest request = sra.getRequest();
-
-        String token = request.getHeader("Authorization");
-        return ResultResponse.success(JwtUtils.checkToken(token));
-    }
-
-    /**
-     * redis包装测试
-     * 包装一个获取方法  先读缓存再穿透更新缓存
-     * @param key
-     * @return
-     */
-    @GetMapping("/redis")
-    public ResultResponse<UserInfo> redis(String key){
-//        UserInfo userInfo = UserInfo.getUserInfo();
-
-        UserInfo cache = cacheUtil.getCache(tempService::getUser, key, UserInfo.class, 30L);
-
-        log.info("拿到数据："+cache);
-        /*ValueOperations<String, UserInfo> ops = redisTemplate.opsForValue();
-        ops.set("key-1",userInfo);*/
-
-        Boolean aBoolean = redisTemplate.hasKey(key);
-        log.info("redis存在{}数据：{}",key,aBoolean);
-
-//        UserInfo userInfo1 = ops.get("key-1");
-
-        return ResultResponse.success(cache);
-    }
-
-
-    /**
-     * spring事件测试
-     * @return
-     */
-    @GetMapping("/event")
-    public ResultResponse<UserInfo> event(){
-        UserInfo userInfo = UserInfo.getUserInfo();
-        cacheEventService.publishEvent(userInfo);
-        return ResultResponse.success(userInfo);
-    }
-
-    /**
-     * 适配器测试
-     * @param type
-     * @param para
-     * @return
-     */
-    @GetMapping("/adapt")
-    public ResultResponse<String> adapt(Integer type , String para){
-        String demo = BussinessUtils.get(type).demo(para);
-        return ResultResponse.success(demo);
-    }
 
     /**
      * rpc测试
@@ -173,39 +55,7 @@ public class ConsumerController {
         return ResultResponse.success(providerInterface.remote(para).getData());
     }
 
-    public TempDto tempDto = new TempDto();
 
-    /**
-     * 并发测试 无效
-     * @param para
-     * @return
-     */
-    @GetMapping("/concur")
-    public ResultResponse<Integer> concur(Integer para){
-        Integer a = tempDto.getConCur();
-//        val.getAndAdd(para);
-
-        Integer b = a + para;
-        tempDto.setConCur(b);
-        if(!tempDto.getConCur().equals(b)){
-            log.error("获取数据：{}",tempDto.getConCur());
-        }
-        return ResultResponse.success(a);
-    }
-    /**
-     * sockect测试
-     *
-     * @param
-     * @return
-     * @author 黄震强
-     * @version 1.0.0
-     * @date 2020/8/2 11:10
-    */
-    @GetMapping("/socket")
-    public ResultResponse<String> socket(String sid,String msg){
-        WebsocketServer.sendInfo(msg,sid);
-        return ResultResponse.success("成功");
-    }
 
     /**
      * mymybatis测试   *
@@ -220,34 +70,6 @@ public class ConsumerController {
         return ResultResponse.success(userService.getById(id));
     }
 
-    /**
-     * 发布mq消息
-     *
-     * @param
-     * @return
-     * @author 黄震强
-     * @version 1.0.0
-     * @date 2020/8/5 15:37
-    */
-    @GetMapping("/publishMsg")
-    public ResultResponse<User> publishMsg(Integer id){
-        return ResultResponse.success(rabbitService.publishMsg(id));
-    }
 
-    /**
-     * 获取配置
-     *
-     * @param
-     * @return
-     * @author 黄震强
-     * @version 1.0.0
-     * @date 2020/8/5 15:37
-     */
-    @GetMapping("/person")
-    public ResultResponse<PersonDTO> person(){
-        Person person = configService.getPerson();
-        PersonDTO personDTO = new PersonDTO();
-        BeanUtils.copyProperties(person,personDTO);
-        return ResultResponse.success(personDTO);
-    }
+
 }

@@ -4,6 +4,8 @@ package com.hzq.dubbo;
 import com.hzq.dubbo.service.impl.thread.countdownlatch.CountTask;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -14,6 +16,28 @@ import java.util.concurrent.CountDownLatch;
  * @date 2020/6/30 11:37
  */
 public class FutureLatchTest {
+    private BigDecimal getRate(Integer canSale,Integer totle){
+        if (canSale.equals(0)||totle.equals(0))return new BigDecimal(100).setScale(2, BigDecimal.ROUND_HALF_UP);
+        if(canSale>=totle)return new BigDecimal(0).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        Integer saled = totle - canSale;
+        BigDecimal bSale = new BigDecimal(saled);
+        BigDecimal bTotle = new BigDecimal(totle);
+
+        BigDecimal rate =bSale.divide(bTotle,2,RoundingMode.HALF_UP);
+
+        return rate;
+
+    }
+    @Test
+    public void decimalTest(){
+        /*BigDecimal b = new BigDecimal(10.9865);
+        System.out.println(b.setScale(2, RoundingMode.HALF_UP).toString()
+                +"/"+b.setScale(2, RoundingMode.HALF_UP).toPlainString()
+                +"/"+b.setScale(2, RoundingMode.HALF_UP).toEngineeringString());*/
+
+        System.out.println(getRate(10,10));;
+    }
     @Test
     public void test() {
         /**

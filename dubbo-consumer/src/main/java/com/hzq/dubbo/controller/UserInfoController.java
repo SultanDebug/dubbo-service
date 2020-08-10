@@ -5,8 +5,6 @@ import com.hzq.dubbo.UserInfo;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.service.UserInfoService;
 import com.hzq.dubbo.service.impl.proxy.TsService;
-import com.hzq.dubbo.user.entity.User;
-import com.hzq.dubbo.user.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
