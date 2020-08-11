@@ -35,6 +35,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+
+    <my-version>1.0</my-version>
+    <java.version>1.8</java.version>
+    <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+    <mybatis-plus.version>3.3.1</mybatis-plus.version>
+    <sharding-jdbc.version>3.1.0</sharding-jdbc.version>
+    <dbcp-version>1.4</dbcp-version>
+    <druid-version>1.1.21</druid-version>
+    <mybatis-version>1.3.2</mybatis-version>
+    <nacos-regist-version>2.7.1</nacos-regist-version>
+    <zookeeper-regist-version>2.7.1</zookeeper-regist-version>
+    <es-version>6.8.9</es-version>
+    <jwt-token-version>0.9.1</jwt-token-version>
+    <jwt-auth-version>3.10.3</jwt-auth-version>
+    <hutool-version>3.0.1</hutool-version>
   </properties>
 
   <dependencies>

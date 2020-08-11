@@ -9,23 +9,28 @@
     <groupId>com.hzq.dubbo</groupId>
     <version>1.0</version>
   </parent>
-
-  <artifactId>framework-common</artifactId>
+  <artifactId>sharding-jdbc-core</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>framework-common</name>
+  <name>sharding-jdbc-core</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
 
   <dependencies>
-    <!--websocket-->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-websocket</artifactId>
+      <groupId>io.shardingsphere</groupId>
+      <artifactId>sharding-jdbc-core</artifactId>
+      <version>${sharding-jdbc.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.hzq.redis</groupId>
-      <artifactId>redis-core</artifactId>
-      <version>${my-version}</version>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>${dbcp-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
   </dependencies>
 

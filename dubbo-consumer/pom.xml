@@ -17,48 +17,60 @@
     <url>http://www.example.com</url>
 
     <dependencies>
+        <!--公共依赖-->
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>dubbo-common</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
+        <!--redis依赖-->
         <dependency>
             <groupId>com.hzq.redis</groupId>
             <artifactId>redis-core</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
+        <!--框架公共依赖-->
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>framework-common</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
+        <!--mybatis依赖-->
         <!--<dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>mybatis-core</artifactId>
             <version>1.0</version>
         </dependency>-->
 
+        <!--mybatis-plus依赖-->
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>mybatis-plus-core</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
 
+        <!--rabbitmq-->
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>rabbitmq-core</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>${my-version}</version>
+        </dependency>
+        <!--远程服务依赖-->
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
             <artifactId>dubbo-interface</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
         <dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>hzq-demo</artifactId>
-            <version>1.0</version>
+            <version>${my-version}</version>
         </dependency>
 
         <dependency>
@@ -81,7 +93,7 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
-            <version>2.7.1</version>
+            <version>${nacos-regist-version}</version>
         </dependency>
 
         <dependency>
@@ -92,7 +104,7 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-zookeeper</artifactId>
-            <version>2.7.1</version>
+            <version>${nacos-regist-version}</version>
             <exclusions>
                 <!--解决slf4j包冲突-->
                 <exclusion>

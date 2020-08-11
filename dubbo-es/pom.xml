@@ -17,23 +17,23 @@
     <dependency>
       <groupId>com.hzq.dubbo</groupId>
       <artifactId>dubbo-interface</artifactId>
-      <version>1.0</version>
+      <version>${my-version}</version>
     </dependency>
     <dependency>
       <groupId>com.hzq.dubbo</groupId>
       <artifactId>dubbo-common</artifactId>
-      <version>1.0</version>
+      <version>${my-version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.elasticsearch.client</groupId>
       <artifactId>elasticsearch-rest-high-level-client</artifactId>
-      <version>6.8.9</version>
+      <version>${es-version}</version>
     </dependency>
     <dependency>
       <groupId>org.elasticsearch</groupId>
       <artifactId>elasticsearch</artifactId>
-      <version>6.8.9</version>
+      <version>${es-version}</version>
     </dependency>
 
     <dependency>
@@ -58,7 +58,7 @@
     <dependency>
       <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo-registry-nacos</artifactId>
-      <version>2.7.1</version>
+      <version>${nacos-regist-version}</version>
     </dependency>
 
     <dependency>
@@ -69,7 +69,7 @@
     <dependency>
       <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo-registry-zookeeper</artifactId>
-      <version>2.7.1</version>
+      <version>${zookeeper-regist-version}</version>
       <exclusions>
         <!--解决slf4j包冲突-->
         <exclusion>

@@ -21,6 +21,7 @@
         <module>mybatis-core</module>
         <module>mybatis-plus-core</module>
         <module>rabbitmq-core</module>
+        <module>sharding-jdbc-core</module>
     </modules>
 
     <dependencies>
