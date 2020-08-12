@@ -4,6 +4,7 @@ package com.hzq.dubbo.config;
 import io.shardingsphere.api.config.rule.ShardingRuleConfiguration;
 import io.shardingsphere.api.config.rule.TableRuleConfiguration;
 import io.shardingsphere.api.config.strategy.InlineShardingStrategyConfiguration;
+import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,7 +19,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 功能说明
+ * sharding主配置
  *
  * @author 黄震强
  * @version 1.0.0
@@ -93,11 +94,11 @@ public class ShardingJdbcAutoConfig {
         // 配置Order表规则
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("user");
-        orderTableRuleConfig.setActualDataNodes("hzq-demo.user_${0..1}");
+        orderTableRuleConfig.setActualDataNodes("hzq-demo.user_${1..2}");
 
         // 配置分库 + 分表策略
 //        orderTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 2}"));
-        orderTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("id", "user_${id % 2}"));
+        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_name",new MyTableShardingAlgorithm()));
 
         // 配置分片规则
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
@@ -105,6 +106,10 @@ public class ShardingJdbcAutoConfig {
 
         // 获取数据源对象
         //javax.sql.DataSource
-        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap<String, Object>(), new Properties());
+
+        // 设置参数 如sql打印、明文密文列查询
+        Properties properties = new Properties();
+        properties.setProperty("sql.show","true");
+        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap<String, Object>(), properties);
     }
 }
