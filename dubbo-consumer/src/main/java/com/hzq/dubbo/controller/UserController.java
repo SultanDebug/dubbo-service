@@ -50,8 +50,9 @@ public class UserController {
      * @date 2020/8/2 11:11
      */
     @PostMapping("/addUser")
-    public ResultResponse<Boolean> addUser(@RequestBody User user){
-        return ResultResponse.success(service.save(user));
+    public ResultResponse<Integer> addUser(@RequestBody User user){
+        boolean save = service.save(user);
+        return ResultResponse.success(user.getId());
     }
 
     /**

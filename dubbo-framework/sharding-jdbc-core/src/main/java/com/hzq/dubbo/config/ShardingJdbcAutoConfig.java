@@ -28,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 public class ShardingJdbcAutoConfig {
 
+    @Deprecated
     public DataSource sample() throws SQLException {
         // 配置真实数据源
         Map<String, DataSource> dataSourceMap = new HashMap<>();
@@ -94,11 +95,17 @@ public class ShardingJdbcAutoConfig {
         // 配置Order表规则
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("user");
-        orderTableRuleConfig.setActualDataNodes("hzq-demo.user_${1..2}");
+        orderTableRuleConfig.setActualDataNodes("hzq-demo.user_${1..3}");
+        //设置分布式id获取方式
+        orderTableRuleConfig.setKeyGeneratorColumnName("id");
+        orderTableRuleConfig.setKeyGenerator(new MyKeyGenerator());
 
         // 配置分库 + 分表策略
 //        orderTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 2}"));
-        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_name",new MyTableShardingAlgorithm()));
+        //字符串字段，用hashcode取模形式分表
+//        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_name",new MyTableShardingAlgorithm()));
+        //id直接取模
+        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("id",new MyTableShardingIntegerAlgorithm()));
 
         // 配置分片规则
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
