@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 public class ShardingJdbcAutoConfig {
 
-    @Deprecated
+//    @Deprecated
     public DataSource sample() throws SQLException {
         // 配置真实数据源
         Map<String, DataSource> dataSourceMap = new HashMap<>();
@@ -77,8 +77,8 @@ public class ShardingJdbcAutoConfig {
         // 配置第一个数据源
         //org.apache.commons.dbcp.BasicDataSource
         BasicDataSource dataSource1 = new BasicDataSource();
-        dataSource1.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://192.168.215.208:3306/hzq-demo");
+        dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource1.setUrl("jdbc:mysql://192.168.50.51:3306/mydb");
         dataSource1.setUsername("root");
         dataSource1.setPassword("123456");
         dataSourceMap.put("hzq-demo", dataSource1);
