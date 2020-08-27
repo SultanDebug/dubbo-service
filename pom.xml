@@ -16,6 +16,7 @@
     <module>dubbo-framework</module>
       <module>dubbo-entity</module>
       <module>dubbo-es</module>
+    <module>dubbo-opencv</module>
   </modules>
 
   <name>dubbo-service</name>
