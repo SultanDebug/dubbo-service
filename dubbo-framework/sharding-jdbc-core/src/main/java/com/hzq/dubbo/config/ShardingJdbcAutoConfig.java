@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 public class ShardingJdbcAutoConfig {
 
-//    @Deprecated
+    //    @Deprecated
     public DataSource sample() throws SQLException {
         // 配置真实数据源
         Map<String, DataSource> dataSourceMap = new HashMap<>();
@@ -78,10 +78,10 @@ public class ShardingJdbcAutoConfig {
         //org.apache.commons.dbcp.BasicDataSource
         BasicDataSource dataSource1 = new BasicDataSource();
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://192.168.50.51:3306/mydb");
+        dataSource1.setUrl("jdbc:mysql://192.168.215.208:3306/hzq-demo");
         dataSource1.setUsername("root");
         dataSource1.setPassword("123456");
-        dataSourceMap.put("hzq-demo", dataSource1);
+        dataSourceMap.put("demo", dataSource1);
 
         // 配置第二个数据源
         //org.apache.commons.dbcp.BasicDataSource
@@ -95,7 +95,7 @@ public class ShardingJdbcAutoConfig {
         // 配置Order表规则
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("user");
-        orderTableRuleConfig.setActualDataNodes("hzq-demo.user_${1..3}");
+        orderTableRuleConfig.setActualDataNodes("demo.user_${1..3}");
         //设置分布式id获取方式
         orderTableRuleConfig.setKeyGeneratorColumnName("id");
         orderTableRuleConfig.setKeyGenerator(new MyKeyGenerator());
@@ -105,7 +105,7 @@ public class ShardingJdbcAutoConfig {
         //字符串字段，用hashcode取模形式分表
 //        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("user_name",new MyTableShardingAlgorithm()));
         //id直接取模
-        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("id",new MyTableShardingIntegerAlgorithm()));
+        orderTableRuleConfig.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("id", new MyTableShardingIntegerAlgorithm()));
 
         // 配置分片规则
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
@@ -116,7 +116,7 @@ public class ShardingJdbcAutoConfig {
 
         // 设置参数 如sql打印、明文密文列查询
         Properties properties = new Properties();
-        properties.setProperty("sql.show","true");
+        properties.setProperty("sql.show", "true");
         return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap<String, Object>(), properties);
     }
 }

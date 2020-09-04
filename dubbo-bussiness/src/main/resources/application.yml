@@ -1,0 +1,118 @@
+server:
+  port: 21005
+  servlet:
+    context-path: /bus
+
+#spring:
+#  mvc:
+#    static-path-pattern: /**
+dubbo:
+  application:
+    #应用名称，每个dubbo应用的名称都是唯一的
+    name: dubbo-bussiness
+#    version: 1.0.0
+  registry:
+    # zookeeper注册中心的地址
+#    address: zookeeper://192.168.215.208:2181
+    #nacos注册中心
+    address: nacos://192.168.215.208:8848
+    parameters:
+      namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+    subscribe: true
+    check: false
+
+#  registry:
+#    address: 192.168.215.208  # zookeeper注册中心的地址
+#    port: 2181              # zookeeper注册中心的端口
+#    protocol: zookeeper
+#    subscribe: true
+#    check: false
+  protocol:
+    name: dubbo
+  #注册中心
+#    address: zookeeper://192.168.50.50:2181
+spring:
+  application:
+    name: dubbo-bussiness
+  profiles:
+    active: dev
+    include: main
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.215.208:8848
+        namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+hzq:
+  mybatis:
+    enable: false
+---
+spring:
+  profiles: main
+  #-------------------------------------------------- redis---------------------------------------------------
+#  redis:
+#    host: 192.168.215.208
+#    port: 6379
+#    password: 123456
+#    database: 0
+#    lettuce:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 8
+#        min-idle: 0
+#---------------------------------------------------rabbit-------------------------------------------------------
+#  rabbitmq:
+#    host: 192.168.215.208
+#    port: 5672
+#    username: admin
+#    password: 123456
+#    virtual-host: /myhost
+#mybatis:
+#  configuration:
+#    log-impl: com.hzq.dubbo.log.MyLog
+#  mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  configuration:
+    log-impl: com.hzq.dubbo.log.MyLog
+    #驼峰转换 在plus默认为true 原始默认为false
+    map-underscore-to-camel-case: true
+  #增加id自增
+  global-config:
+    db-config:
+      id-type: auto
+
+#------------------------------------------------自定义参数，实时加载-------------------------------------------------------------
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health
+---
+spring:
+  profiles: jdbc
+
+  #-------------------------------------------------- DATASOURCE---------------------------------------------------
+  datasource:
+    #      url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
+    ip: 192.168.215.208
+    port: 3306
+    database: hzq-demo
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: 'stat,wall,slf4j'
+    poolPreparedStatements: false
+    initialSize: 5
+    minIdle: 5
+    maxActive: 100
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    timeBetweenEvictionRunsMillis: 60000
+    validationQuery: 'select ''x'''
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    maxOpenPreparedStatements: 20
+    connection-properties: druid.stat.merggSql=ture;druid.stat.slowSqlMillis=5000

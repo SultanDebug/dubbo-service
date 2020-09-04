@@ -1,9 +1,10 @@
 
-package com.hzq.dubbo.service.impl;
+package com.hzq.dubbo.bussiness.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzq.dubbo.bussiness.mapper.UserMapper;
+import com.hzq.dubbo.bussiness.service.BusUserService;
 import com.hzq.dubbo.User;
-import com.hzq.dubbo.mapper.UserMapper;
-import com.hzq.dubbo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Service;
  * @version 1.0.0
  * @date 2020/7/6 16:39
  */
-@Service
-public class UserServiceImpl implements UserService {
+@Service("busUserServiceImpl")
+public class BusUserServiceImpl extends ServiceImpl<UserMapper, User> implements BusUserService {
     @Autowired
     private UserMapper userMapper;
 

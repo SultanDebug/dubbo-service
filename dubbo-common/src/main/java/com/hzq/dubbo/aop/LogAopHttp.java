@@ -35,7 +35,7 @@ import static com.hzq.dubbo.constants.CommonConstants.*;
 @Slf4j
 public class LogAopHttp {
 
-    @Around("execution(public * com.hzq.*.controller..*(..))")
+    @Around("execution(public * com.hzq.*..controller..*(..))")
     public Object process(ProceedingJoinPoint point) throws Throwable {
         String className = point.getTarget().getClass().getSimpleName()+"."+point.getSignature().getName();
 

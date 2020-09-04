@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <script src="/api/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+   <input id="i1">
+   <p id="p1" >初始化文本</p>
+   <button id="bt" onclick="btn()">提交</button>
+    <br>
+   <input id="cid" value="测试">
+   <button id="btn" onclick="webSocket()">启动websocket</button>
+   <p id="val">这是接收值</p>
+
+   <video width="1200" height="600" controls autoplay>
+       <source src="/api/src/rain.mp4" type="video/mp4">
+       您的浏览器不支持 video 标签。
+   </video>
+
+</body>
+<script type="text/javascript">
+    function btn(){
+        /*var xmlHttpRequest = new XMLHttpRequest();
+
+        xmlHttpRequest.open("GET","/api/remote?para="+document.getElementById("i1").value,true);
+
+        xmlHttpRequest.send();
+
+        document.getElementById("p1").innerHTML = xmlHttpRequest.responseText;*/
+
+        /*xmlHttpRequest.onstatechange = function () {
+            if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status === 200) {
+                document.getElementById("p1").innerHTML = xmlHttpRequest.responseText;
+            }
+        };*/
+
+        $.ajax({
+            //请求方式
+            type : "GET",
+            //请求的媒体类型
+            contentType: "application/json;charset=UTF-8",
+            //请求地址
+            url : "/api/remote?para="+document.getElementById("i1").value,
+            //数据，json字符串
+            //data : JSON.stringify(list),
+            //请求成功
+            success : function(result) {
+                console.log(result);
+                document.getElementById("p1").innerHTML = result;
+            },
+            //请求失败，包含具体的错误信息
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+
+
+    }
+
+
+    function webSocket() {
+        var cid = document.getElementById("cid").value;
+
+        console.log(cid);
+
+        var ws = new WebSocket("ws://localhost:21003/api/ws/"+cid);
+
+        ws.onopen = function()
+        {
+            // Web Socket 已连接上，使用 send() 方法发送数据
+            ws.send("链接打开");
+            console.log("数据发送中...");
+        };
+
+        ws.onmessage = function (evt)
+        {
+            var received_msg = evt.data;
+
+            document.getElementById("val").innerHTML = received_msg;
+
+            console.log("数据已接收..."+received_msg);
+        };
+
+        ws.onclose = function()
+        {
+            // 关闭 websocket
+            console.log("连接已关闭...");
+        };
+
+    }
+
+
+</script>
+</html>

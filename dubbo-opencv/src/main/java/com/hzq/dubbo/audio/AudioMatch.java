@@ -1,9 +1,9 @@
 
 package com.hzq.dubbo.audio;
 
-import com.sun.media.sound.FFT;
 
 import javax.sound.sampled.*;
+import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,10 +19,11 @@ import java.util.Calendar;
  */
 public class AudioMatch {
     private static int sampleRateInHz = 41000;
+
     public static void main(String[] args) {
         try {
-            getAudio();
-        } catch (LineUnavailableException e) {
+            getFftData();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -33,7 +34,7 @@ public class AudioMatch {
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
         final TargetDataLine line = (TargetDataLine) AudioSystem.getLine(info);
 
-        Thread thread = new Thread(()->{
+        Thread thread = new Thread(() -> {
             FileOutputStream fo = null;
             long totalAudioLen = 0;
             long totalDataLen = totalAudioLen + 36;
@@ -99,26 +100,28 @@ public class AudioMatch {
 
     }
 
-    /*public static void fft(byte audio[]) {
-
+    public static Complex[][] getFftData() throws IOException {
+        byte[] audio = audioFile();
         final int totalSize = audio.length;
 
-        int amountPossible = totalSize/Harvester.CHUNK_SIZE;
+        int amountPossible = totalSize / 4;
 
         //When turning into frequency domain we'll need complex numbers:
         Complex[][] results = new Complex[amountPossible][];
 
         //For all the chunks:
-        for(int times = 0;times < amountPossible; times++) {
-            Complex[] complex = new Complex[Harvester.CHUNK_SIZE];
-            for(int i = 0;i < Harvester.CHUNK_SIZE;i++) {
+        for (int times = 0; times < amountPossible; times++) {
+            Complex[] complex = new Complex[4];
+            for (int i = 0; i < 4; i++) {
                 //Put the time domain data into a complex number with imaginary part as 0:
-                complex[i] = new Complex(audio[(times*Harvester.CHUNK_SIZE)+i], 0);
+                complex[i] = new Complex(audio[(times * 4) + i], 0);
             }
             //Perform FFT analysis on the chunk:
             results[times] = FFT.fft(complex);
         }
-    }*/
+
+        return results;
+    }
 
     public static void WriteWaveFileHeader(FileOutputStream out, long totalAudioLen,
                                            long totalDataLen, long longSampleRate,
@@ -180,8 +183,8 @@ public class AudioMatch {
         return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
     }
 
-    public static void audioFile() throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("E:\\software\\1-20K.mp3");
+    public static byte[] audioFile() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("F:\\test\\myaudio_copy.mp3");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         boolean running = true;
         byte[] buffer = new byte[1024];
@@ -195,6 +198,6 @@ public class AudioMatch {
             }
         }
         byte[] bytes = out.toByteArray();
-        System.out.println(bytes);
+        return bytes;
     }
 }

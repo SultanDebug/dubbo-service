@@ -34,7 +34,7 @@ import static com.hzq.dubbo.constants.CommonConstants.*;
 @Slf4j
 public class LogAopDubbo {
 
-    @Around("execution(public * com.hzq.*.api..*(..))")
+    @Around("execution(public * com.hzq.*..api..*(..))")
     public Object process(ProceedingJoinPoint point) throws Throwable {
         String className = point.getTarget().getClass().getSimpleName()+"."+point.getSignature().getName();
         String traceId = RpcContext.getContext().getAttachment(TRACEID);
