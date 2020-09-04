@@ -60,7 +60,7 @@ public class WebsocketServer {
     }
 
     @OnMessage
-    public void OnMessage(String msg, Session session){
+    public void onMessage(String msg, Session session){
         log.info("收到客户端："+sid+" 消息："+msg);
         for (WebsocketServer server : servers) {
             try {
@@ -110,7 +110,7 @@ public class WebsocketServer {
 
     @OnError
     public void onError(Session session, Throwable error){
-        log.info("异常："+error.getStackTrace());
+        log.info("异常：{}",error.getStackTrace());
     }
 
     /**

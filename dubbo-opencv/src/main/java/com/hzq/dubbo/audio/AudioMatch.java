@@ -74,7 +74,7 @@ public class AudioMatch {
                 fo = new FileOutputStream("D:\\tmp\\myaudio.mp3");
 
                 //添加头部信息
-                WriteWaveFileHeader(fo, totalAudioLen, totalDataLen, longSampleRate, channels, byteRate);
+                writeWaveFileHeader(fo, totalAudioLen, totalDataLen, longSampleRate, channels, byteRate);
                 fo.write(bytes);
 
                 out.close();
@@ -123,7 +123,7 @@ public class AudioMatch {
         return results;
     }
 
-    public static void WriteWaveFileHeader(FileOutputStream out, long totalAudioLen,
+    public static void writeWaveFileHeader(FileOutputStream out, long totalAudioLen,
                                            long totalDataLen, long longSampleRate,
                                            int channels, long byteRate) throws IOException {
         byte[] header = new byte[44];
