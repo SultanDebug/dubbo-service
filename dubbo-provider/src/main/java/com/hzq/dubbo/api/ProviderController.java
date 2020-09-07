@@ -56,7 +56,7 @@ public class ProviderController implements ProviderInterface {
         load.forEach(o->{
 
             log.info(JSONObject.toJSONString(o.getMsg(i.get()+"")));
-            strings.add(o.getMsg(i.get()+"").getMsg());
+            strings.add(o.getMsg(i.get()+"").getData());
             i.getAndIncrement();
         });
         return ResultResponse.success(JSONObject.toJSONString(strings));

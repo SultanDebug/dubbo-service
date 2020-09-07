@@ -5,6 +5,8 @@ import com.hzq.dubbo.User;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.bussiness.service.BusUserInfoService;
 import com.hzq.dubbo.bussiness.service.BusUserService;
+import com.hzq.dubbo.provider.ProviderInterface;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,24 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private BusUserService serviceB;
+    private BusUserService busUserService;
+
+    @Reference
+    private ProviderInterface providerInterface;
+
+    /**
+     * 查询
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/8/2 11:11
+     */
+    @GetMapping("/remote")
+    public ResultResponse<String> remote(@RequestParam("para") String para){
+        return providerInterface.remoteSPI(para);
+    }
 
     /**
      * 查询
@@ -32,7 +51,7 @@ public class UserController {
     */
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(@RequestParam("id") Integer id){
-        return ResultResponse.success(serviceB.getById(id));
+        return ResultResponse.success(busUserService.getById(id));
     }
 
     /**
@@ -46,7 +65,7 @@ public class UserController {
      */
     @PostMapping("/addUser")
     public ResultResponse<Integer> addUser(@RequestBody User user){
-        boolean save = serviceB.save(user);
+        boolean save = busUserService.save(user);
         return ResultResponse.success(user.getId());
     }
 
@@ -61,7 +80,7 @@ public class UserController {
      */
     @PostMapping("/updateUser")
     public ResultResponse<Boolean> updateUser(@RequestBody User user){
-        return ResultResponse.success(serviceB.saveOrUpdate(user));
+        return ResultResponse.success(busUserService.saveOrUpdate(user));
     }
 
     /**
@@ -75,6 +94,6 @@ public class UserController {
      */
     @GetMapping("/deleteUser")
     public ResultResponse<Boolean> deleteUser(@RequestParam("id") Integer id){
-        return ResultResponse.success(serviceB.removeById(id));
+        return ResultResponse.success(busUserService.removeById(id));
     }
 }

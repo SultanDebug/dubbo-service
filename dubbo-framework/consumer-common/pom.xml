@@ -70,6 +70,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--mybatis-plus依赖-->
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>${my-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hzq.dubbo</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>${my-version}</version>
+        </dependency>
     </dependencies>
 
 </project>

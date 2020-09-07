@@ -1,22 +1,16 @@
 package com.hzq.dubbo;
 
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import com.hzq.dubbo.config.EnableProvider;
 import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-
 import java.util.UUID;
-
 import static com.hzq.dubbo.constants.CommonConstants.TRACEID;
 
 /**
  * Hello world!
  *
  */
-@SpringBootApplication(scanBasePackages = "com.hzq.*")
-@EnableDubbo(scanBasePackages = "com.hzq.*")
+@EnableProvider
 public class DubboProviderApp
 {
     public static void main( String[] args )
