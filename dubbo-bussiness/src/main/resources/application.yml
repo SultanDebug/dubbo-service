@@ -45,6 +45,9 @@ spring:
 hzq:
   mybatis:
     enable: false
+  enable: true
+  name: sultan
+  age: 18
 ---
 spring:
   profiles: main

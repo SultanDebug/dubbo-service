@@ -23,6 +23,12 @@
       <version>${my-version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.hzq.dubbo</groupId>
+      <artifactId>all-import-starter</artifactId>
+      <version>${my-version}</version>
+    </dependency>
+
     <!--远程服务依赖-->
     <dependency>
       <groupId>com.hzq.dubbo</groupId>

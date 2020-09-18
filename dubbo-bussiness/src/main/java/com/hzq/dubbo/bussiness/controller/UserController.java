@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private BusUserService busUserService;
 
-    @Reference
+    @Reference(check = false)
     private ProviderInterface providerInterface;
 
     /**

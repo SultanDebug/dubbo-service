@@ -24,6 +24,7 @@
         <module>sharding-jdbc-core</module>
         <module>consumer-common</module>
         <module>provider-common</module>
+        <module>all-import-starter</module>
     </modules>
 
     <dependencies>
