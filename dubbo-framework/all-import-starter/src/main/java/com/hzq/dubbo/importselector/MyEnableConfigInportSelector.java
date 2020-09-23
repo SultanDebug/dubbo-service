@@ -3,7 +3,15 @@
  */
 package com.hzq.dubbo.importselector;
 
+import com.hzq.dubbo.service.ImportSelectorService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanClassLoaderAware;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ImportSelector;
+import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 
 /**
@@ -13,26 +21,34 @@ import org.springframework.core.type.AnnotationMetadata;
  * @version 1.0.0
  * @date 2020/9/18 17:54
  */
-public class MyEnableConfigInportSelector implements ImportSelector {
+@Slf4j
+public class MyEnableConfigInportSelector implements ImportSelector, BeanClassLoaderAware, EnvironmentAware, BeanFactoryAware {
+    private Environment environment;
+    private ClassLoader classLoader;
+    private BeanFactory beanFactory;
     @Override
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
-        /*if (!isEnabled()) {
+        Boolean property = this.environment.getProperty("hzq.enable", Boolean.class, Boolean.TRUE);
+        log.info("加载 import selector : {}",property);
+        if(!property){
             return new String[0];
+        }else{
+            return new String[]{ImportSelectorService.class.getName()};
         }
-        AnnotationAttributes attributes = AnnotationAttributes.fromMap(
-                metadata.getAnnotationAttributes(this.annotationClass.getName(), true));
+    }
 
-        Assert.notNull(attributes, "No " + getSimpleName() + " attributes found. Is "
-                + metadata.getClassName() + " annotated with @" + getSimpleName() + "?");
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
 
-        // Find all possible auto configuration classes, filtering duplicates
-        // 调用SpringFactoriesLoader的loadFactoryNames去加载
-        List<String> factories = new ArrayList<>(new LinkedHashSet<>(SpringFactoriesLoader
-                .loadFactoryNames(this.annotationClass, this.beanClassLoader)));
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
-        //省略了错误判断和多于一个的log
-
-        return factories.toArray(new String[factories.size()]);*/
-        return null;
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
 }

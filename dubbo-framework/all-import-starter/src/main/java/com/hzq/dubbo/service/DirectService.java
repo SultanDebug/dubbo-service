@@ -1,7 +1,7 @@
 /*
  * 深圳市灵智数科有限公司版权所有.
  */
-package com.hzq.dubbo.enableautoconfig;
+package com.hzq.dubbo.service;
 
 import com.hzq.dubbo.config.HzqProperties;
 import org.springframework.beans.factory.annotation.Autowired;

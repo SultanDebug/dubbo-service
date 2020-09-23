@@ -4,6 +4,8 @@
 package com.hzq.dubbo.enableautoconfig;
 
 import com.hzq.dubbo.config.HzqProperties;
+import com.hzq.dubbo.service.DirectService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * @version 1.0.0
  * @date 2020/9/18 16:43
  */
-@Configuration
+//@Configuration
 /*
 * onBean 因为config加载无序  会导致加载失败
 * */

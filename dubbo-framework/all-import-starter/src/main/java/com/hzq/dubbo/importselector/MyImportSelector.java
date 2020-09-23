@@ -1,5 +1,7 @@
 package com.hzq.dubbo.importselector;
 
+import com.hzq.dubbo.config.HzqProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -16,5 +18,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Import(MyEnableConfigInportSelector.class)
+@EnableConfigurationProperties(HzqProperties.class)
 public @interface MyImportSelector {
 }
