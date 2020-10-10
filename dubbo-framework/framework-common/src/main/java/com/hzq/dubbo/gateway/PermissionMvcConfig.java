@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class PermissionMvcConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/*");
+        registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 }

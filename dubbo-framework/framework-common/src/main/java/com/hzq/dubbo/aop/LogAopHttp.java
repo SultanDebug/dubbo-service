@@ -39,7 +39,8 @@ public class LogAopHttp {
     public Object process(ProceedingJoinPoint point) throws Throwable {
         String className = point.getTarget().getClass().getSimpleName()+"."+point.getSignature().getName();
 
-        String traceId = UUID.randomUUID().toString().replace("-", "");
+//        String traceId = UUID.randomUUID().toString().replace("-", "");
+        String traceId = MDC.get(TRACEID);
         MDC.put(TRACEID, traceId);
 
         LogTrace.setTraceid(traceId);
@@ -82,7 +83,7 @@ public class LogAopHttp {
             e.printStackTrace();
             UserInfo.removeUser();
         }finally {
-            MDC.remove(TRACEID);
+//            MDC.remove(TRACEID);
         }
 
         return null;
