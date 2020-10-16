@@ -1,56 +1,62 @@
-[
-  {
-    "code": "platform.user",
-    "name": "用户",
-    "type": "PLATFORM",
-    "children": [
-      {
-        "code": "platform.user.update",
-        "name": "用户更新",
-        "type": "PLATFORM"
-      },{
-        "code": "platform.user.delete",
-        "name": "用户删除",
-        "type": "PLATFORM"
-      }
-    ]
-  },
-  {
-    "code": "platform.setting",
-    "name": "设置",
-    "type": "PLATFORM",
-    "children": [
-      {
-        "code": "platform.setting.list",
-        "name": "列表设置",
-        "type": "PLATFORM",
-        "children": [
-          {
-            "code": "platform.setting.list.update",
-            "name": "列表编辑",
-            "type": "PLATFORM"
-          },{
-            "code": "platform.setting.list.export",
-            "name": "列表导出",
-            "type": "PLATFORM"
-          }
-        ]
-      },{
-        "code": "platform.setting.bussiness",
-        "name": "业务设置",
-        "type": "PLATFORM",
-        "children": [
-          {
-            "code": "platform.setting.bussiness.one",
-            "name": "业务设置一",
-            "type": "PLATFORM"
-          },{
-            "code": "platform.setting.bussiness.two",
-            "name": "业务设置二",
-            "type": "PLATFORM"
-          }
-        ]
-      }
-    ]
-  }
-]
+{
+  "menus": [
+    {
+      "code": "platform.user",
+      "name": "用户",
+      "type": "PLATFORM",
+      "children": [
+        {
+          "code": "platform.user.update",
+          "name": "用户更新",
+          "type": "PLATFORM"
+        },
+        {
+          "code": "platform.user.delete",
+          "name": "用户删除",
+          "type": "PLATFORM"
+        }
+      ]
+    },
+    {
+      "code": "platform.setting",
+      "name": "设置",
+      "type": "PLATFORM",
+      "children": [
+        {
+          "code": "platform.setting.list",
+          "name": "列表设置",
+          "type": "PLATFORM",
+          "children": [
+            {
+              "code": "platform.setting.list.update",
+              "name": "列表编辑",
+              "type": "PLATFORM"
+            },
+            {
+              "code": "platform.setting.list.export",
+              "name": "列表导出",
+              "type": "PLATFORM"
+            }
+          ]
+        },
+        {
+          "code": "platform.setting.bussiness",
+          "name": "业务设置",
+          "type": "PLATFORM",
+          "children": [
+            {
+              "code": "platform.setting.bussiness.one",
+              "name": "业务设置一",
+              "type": "PLATFORM"
+            },
+            {
+              "code": "platform.setting.bussiness.two",
+              "name": "业务设置二",
+              "type": "PLATFORM"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
