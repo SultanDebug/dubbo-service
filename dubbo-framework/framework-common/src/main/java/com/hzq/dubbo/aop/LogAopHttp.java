@@ -3,6 +3,7 @@ package com.hzq.dubbo.aop;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hzq.dubbo.filter.NullFilter;
 import com.hzq.dubbo.jwt.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -74,7 +75,9 @@ public class LogAopHttp {
 
             Object result = point.proceed();
 
-            log.info("执行{}，出参为：{}",className, JSONObject.toJSONString(result));
+            String tmp = JSONObject.toJSONString(result,new NullFilter());
+
+            log.info("执行{}，出参为：{}",className, tmp);
 
             UserInfo.removeUser();
             LogTrace.removeTraceid();
@@ -82,11 +85,10 @@ public class LogAopHttp {
         }catch (Exception e){
             e.printStackTrace();
             UserInfo.removeUser();
+            return ResultResponse.fail("50000","网络开小差");
         }finally {
 //            MDC.remove(TRACEID);
         }
-
-        return null;
     }
 
     private List<Object> paramsList(ProceedingJoinPoint point){

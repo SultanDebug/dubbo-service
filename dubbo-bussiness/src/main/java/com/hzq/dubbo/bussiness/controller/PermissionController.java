@@ -2,6 +2,7 @@
 package com.hzq.dubbo.bussiness.controller;
 
 import com.hzq.dubbo.aop.ResultResponse;
+import com.hzq.dubbo.dto.Permission;
 import com.hzq.dubbo.dto.PermissionDTO;
 import com.hzq.dubbo.service.PermissionJsonSerialize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ import java.io.IOException;
 @RequestMapping("/permission")
 public class PermissionController {
     @GetMapping("/parse")
-    public ResultResponse<PermissionDTO> parse() throws IOException {
+    public ResultResponse<Permission> parse() throws IOException {
         return ResultResponse.success(PermissionJsonSerialize.parsJson());
     }
 }

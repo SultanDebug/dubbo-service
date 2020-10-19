@@ -1,5 +1,7 @@
 package com.hzq.dubbo.aop;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hzq.dubbo.filter.NullFilter;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,9 +21,7 @@ public class ResultResponse<T> implements Serializable {
     private T data;
 
     public static<T> ResultResponse<T> success(){
-        ResultResponse<T> res = new ResultResponse<T>();
-        res.setCode("200");
-        return res;
+        return success(null);
     }
 
     public static<T> ResultResponse<T> success(T data){

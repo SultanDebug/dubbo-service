@@ -4,6 +4,7 @@ package com.hzq.dubbo.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 功能说明
@@ -18,5 +19,5 @@ public class PermissionDTO implements Serializable {
     private String code;
     private String name;
     private String type;
-    private PermissionDTO children;
+    private List<PermissionDTO> children;
 }
