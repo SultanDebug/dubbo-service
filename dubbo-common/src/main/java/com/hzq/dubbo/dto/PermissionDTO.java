@@ -16,7 +16,9 @@ import java.util.List;
 @Data
 public class PermissionDTO implements Serializable {
     private static final long serialVersionUID = 1938732970897738104L;
+    public static final String defaultType = "PLATFORM";
     private String code;
+    private String parentCode;
     private String name;
     private String type;
     private List<PermissionDTO> children;
