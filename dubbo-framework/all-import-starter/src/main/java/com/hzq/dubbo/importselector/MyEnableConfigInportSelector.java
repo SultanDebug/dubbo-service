@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 
 /**
- * 功能说明
+ * selector形式
  *
  * @author 黄震强
  * @version 1.0.0
@@ -24,6 +24,15 @@ public class MyEnableConfigInportSelector implements ImportSelector, BeanClassLo
     private Environment environment;
     private ClassLoader classLoader;
     private BeanFactory beanFactory;
+    /**
+     * importselector形式装载bean
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/10/21 11:55
+    */
     @Override
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
         Boolean property = this.environment.getProperty("hzq.enable", Boolean.class, Boolean.TRUE);

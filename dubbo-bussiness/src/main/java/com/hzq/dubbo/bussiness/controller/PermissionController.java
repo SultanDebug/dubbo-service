@@ -6,7 +6,9 @@ import com.hzq.dubbo.annotation.ParentKey;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.dto.Permission;
 import com.hzq.dubbo.dto.PermissionDTO;
+import com.hzq.dubbo.dto.ProcessDTO;
 import com.hzq.dubbo.service.PermissionJsonSerialize;
+import com.hzq.dubbo.service.ProcessService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 功能说明
+ * 权限点验证  字段值修改验证
  *
  * @author 黄震强
  * @version 1.0.0
@@ -31,6 +33,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/permission")
 @ParentKey(code = "platform.user.update")
 public class PermissionController {
+    /**
+     * 权限点测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/10/21 11:50
+    */
     @GetMapping("/parse")
     @Auth(code = "zhangsan",name = "张三")
     public ResultResponse<Permission> parse() throws IOException {
@@ -68,5 +79,25 @@ public class PermissionController {
         tree.setMenus(treeMenus);
 
         return ResultResponse.success(permission);
+    }
+
+    /**
+     * 字段值测试
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/10/21 11:51
+    */
+    @GetMapping("/annoProcess")
+    @Auth(code = "lisi",name = "李四")
+    public ResultResponse<Object> annoProcess() throws IOException, InstantiationException, IllegalAccessException {
+        ProcessDTO dto = new ProcessDTO();
+        dto.setId("1");
+        dto.setName("sultan");
+
+        ProcessService.process(dto);
+        return ResultResponse.success(dto);
     }
 }

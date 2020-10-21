@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 功能说明
+ * 权限过滤器  mvc形式处理
  *
  * @author 黄震强
  * @version 1.0.0

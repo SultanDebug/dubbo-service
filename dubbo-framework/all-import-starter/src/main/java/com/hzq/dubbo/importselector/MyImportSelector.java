@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 功能说明
+ * 注解形式
  *
  * @author 黄震强
  * @version 1.0.0

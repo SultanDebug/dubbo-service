@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- * 功能说明
+ * mvc过滤器注册
  *
  * @author 黄震强
  * @version 1.0.0

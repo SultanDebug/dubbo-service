@@ -5,7 +5,7 @@ import com.hzq.dubbo.config.HzqProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 功能说明
+ * selector形式
  *
  * @author 黄震强
  * @version 1.0.0

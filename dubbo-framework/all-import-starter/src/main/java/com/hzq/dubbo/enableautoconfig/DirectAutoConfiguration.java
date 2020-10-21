@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 功能说明
+ * config形式
  *
  * @author 黄震强
  * @version 1.0.0
@@ -30,6 +30,15 @@ public class DirectAutoConfiguration {
     @Autowired
     private HzqProperties properties;
 
+    /**
+     * 装载
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/10/21 11:54
+    */
     @Bean
     public DirectService getService(){
         log.info("加载direct-service");

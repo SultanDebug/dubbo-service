@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 功能说明
+ * 权限实体
  *
  * @author 黄震强
  * @version 1.0.0
