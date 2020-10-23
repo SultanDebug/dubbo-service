@@ -42,6 +42,10 @@ spring:
       discovery:
         server-addr: 192.168.215.208:8848
         namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
+#  mvc:
+#    static-path-pattern: /static/**
+#  resources:
+#    static-locations: classpath:/static/
 hzq:
   mybatis:
     enable: false

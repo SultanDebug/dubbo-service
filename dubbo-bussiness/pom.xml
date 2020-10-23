@@ -41,6 +41,13 @@
       <version>${my-version}</version>
     </dependency>
 
+    <!--mqtt-->
+    <dependency>
+      <groupId>org.eclipse.paho</groupId>
+      <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+      <version>${mqtt-version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>

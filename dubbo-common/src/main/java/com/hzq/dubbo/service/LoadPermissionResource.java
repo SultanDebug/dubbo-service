@@ -109,6 +109,6 @@ public class LoadPermissionResource implements CommandLineRunner {
         }
         //添加进json文件数据  组成树
         Permission all = PermissionJsonSerialize.getAll(permissionDTOS);
-        log.info("全线数据树加载:"+ JSON.toJSONString(all));
+        log.info("权限数据树加载:"+ JSON.toJSONString(all));
     }
 }
