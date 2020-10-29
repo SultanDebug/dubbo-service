@@ -5,93 +5,69 @@
     <title>mqtt测试页面</title>
     <script src="/bus/js/jquery-3.4.1.min.js"></script>
     <!--<script src="https://cdn.bootcss.com/paho-mqtt/1.0.2/mqttws31.min.js"></script>-->
-    <script src="/bus/js/paho-mqtt-min.js"></script>
+    <!--<script src="/bus/js/paho-mqtt-min.js"></script>-->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 </head>
 <body>
-
-   <!--<button id="btn" onclick="btn()">启动mqtt链接</button>-->
-   <p id="val">这是接收值</p>
+    <input id="msg" type="text" value="default msg">
+   <button id="btn" onclick="btn()">send</button>
+   <p id="val">receive value</p>
 
 </body>
 <script type="text/javascript">
 
-    client = new Paho.MQTT.Client("192.168.163.57", Number(1883), "my-html-client");//建立客户端实例
-    client.connect({onSuccess:onConnect});//连接服务器并注册连接成功处理事件
-    function onConnect() {
-        console.log("onConnected");
+    console.log(mqtt)
+    const clientId = 'mywebclient';
 
-        topic = 'v1/devices/me/telemetry'; //订阅的主题
+    const host = 'ws://192.168.215.208:8083'
 
-        client.subscribe(topic);//订阅主题
-        console.log("subscribed");
-        //发送消息
-    }
-    client.onConnectionLost = onConnectionLost;//注册连接断开处理事件
-    client.onMessageArrived = onMessageArrived;//注册消息接收处理事件
-    function onConnectionLost(responseObject) {
-        if (responseObject.errorCode !== 0) {
-            console.log("onConnectionLost:"+responseObject.errorMessage);
-            console.log("连接已断开");
-        }
-    }
-    function onMessageArrived(message) {
-
-        console.log("收到消息:"+message.payloadString);
-        console.log("主题："+message.destinationName);
-
-        var received_msg = message.payloadString;
-
-        document.getElementById("val").innerHTML = received_msg;
-
-        console.log("数据已接收..."+received_msg);
-
-        // temprature = message.payloadString.slice(15,20); // 截取数据
-        // humidity = message.payloadString.slice(32,37); // 截取数据
-
-        // var temp1 = jQuery.parseJSON(message.payloadString);
-
-        // console.log("解析出来的：humidity："+temp1.humidity);
-        // console.log("解析出来的：temperature："+temp1.temperature);
-        // 直接使用格式化的JSon数据
-        // temperature = temp1.temperature;  // 直接使用格式化的JSon数据
-        // humidity = temp1.humidity;
-
-
-        //console.log(temprature.slice(15,20));
-        //console.log(temprature.slice(32,37));
-
+    const options = {
+        keepalive: 60,
+        clientId: clientId,
+        path: '/mqtt',
+        /*protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,*/
+        /*will: {
+            topic: 'WillMsg',
+            payload: 'Connection Closed abnormally..!',
+            qos: 0,
+            retain: false
+        },*/
     }
 
+    console.log('Connecting mqtt client')
+    const client = mqtt.connect(host, options)
 
-    function webSocket() {
-        var cid = document.getElementById("cid").value;
+    client.on('connect', () => {
+        console.log('Client connected:' + clientId)
+        // Subscribe
+        client.subscribe('hzqtopic', { qos: 0 })
+    })
 
-        console.log(cid);
+    // Received
+    client.on('message', (topic, message, packet) => {
+        var msg = 'Received Message: ' + message.toString() + '---On topic: ' + topic;
+        console.log(msg)
+        var res = document.getElementById("val").innerHTML;
+        document.getElementById("val").innerHTML = res+'<br>'+msg;
+    })
 
-        var ws = new WebSocket("ws://localhost:21003/api/ws/"+cid);
+    client.on('error', (err) => {
+        console.log('Connection error: ', err)
+        client.end()
+    })
 
-        ws.onopen = function()
-        {
-            // Web Socket 已连接上，使用 send() 方法发送数据
-            ws.send("链接打开");
-            console.log("数据发送中...");
-        };
+    client.on('reconnect', () => {
+        console.log('Reconnecting...')
+    })
 
-        ws.onmessage = function (evt)
-        {
-            var received_msg = evt.data;
-
-            document.getElementById("val").innerHTML = received_msg;
-
-            console.log("数据已接收..."+received_msg);
-        };
-
-        ws.onclose = function()
-        {
-            // 关闭 websocket
-            console.log("连接已关闭...");
-        };
-
+    function btn() {
+        // var msg = $("#msg").val()
+        var msg = document.getElementById("msg").value
+        client.publish('hzqtopic', msg, { qos: 0, retain: false })
     }
 
 

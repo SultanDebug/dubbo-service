@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
  * @date 2020/10/22 15:29
  */
 public class MyMqttClient {
-    public static final String HOST = "tcp://192.168.163.57:1883";
+    public static final String HOST = "tcp://192.168.215.208:1883";
     public static final String TOPIC = "hzqtopic";
     private static final String clientid = "myclient";
     private MqttClient client;
@@ -36,9 +36,9 @@ public class MyMqttClient {
             // 设置是否清空session,这里如果设置为false表示服务器会保留客户端的连接记录，这里设置为true表示每次连接到服务器都以新的身份连接
             options.setCleanSession(true);
             // 设置连接的用户名
-            options.setUserName(userName);
+//            options.setUserName(userName);
             // 设置连接的密码
-            options.setPassword(passWord.toCharArray());
+//            options.setPassword(passWord.toCharArray());
             // 设置超时时间 单位为秒
             options.setConnectionTimeout(10);
             // 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送个消息判断客户端是否在线，但这个方法并没有重连的机制
