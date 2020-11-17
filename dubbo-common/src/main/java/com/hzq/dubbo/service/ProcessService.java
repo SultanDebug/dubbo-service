@@ -2,6 +2,7 @@
 package com.hzq.dubbo.service;
 
 import com.hzq.dubbo.annotation.CommonProcess;
+import com.hzq.dubbo.interfaces.ProcessDefault;
 import com.hzq.dubbo.interfaces.ProcessInterface;
 
 import java.lang.reflect.Field;
@@ -19,6 +20,9 @@ public class ProcessService {
             if(declaredField.isAnnotationPresent(CommonProcess.class)){
                 CommonProcess annotation = declaredField.getAnnotation(CommonProcess.class);
                 Class<? extends ProcessInterface> clazz = annotation.clazz();
+                if(clazz == null){
+                    clazz = ProcessDefault.class;
+                }
                 ProcessInterface processInterface = clazz.newInstance();
                 declaredField.setAccessible(true);
                 declaredField.set(o,processInterface.run((String) declaredField.get(o)));
