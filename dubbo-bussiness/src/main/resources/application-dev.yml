@@ -6,6 +6,16 @@ config:
       - 管理员
       - 开发
 
+jdbc:
+  driver: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://192.168.213.188:3306/hzq-demo
+  name: root
+  pass: 123456
+
+redis:
+  url: 192.168.213.188
+  pass: 123456
+
 sharding:
   jdbc:
 #    datasource:

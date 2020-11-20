@@ -10,6 +10,8 @@ import io.lettuce.core.support.ConnectionPoolSupport;
 import io.shardingsphere.core.keygen.KeyGenerator;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
@@ -21,17 +23,27 @@ import java.time.Duration;
  * @date 2020/8/12 17:45
  */
 public class MyKeyGenerator implements KeyGenerator {
+    private String url;
+    private String pass;
+
+    /**
+     * 创建redis客户端链接
+     */
+    private RedisClient client = null;
+    private GenericObjectPool<StatefulRedisConnection<String, String>> pool = null;
+
+    public MyKeyGenerator(String url, String pass) {
+        this.url = url;
+        this.pass = pass;
+
+        client = RedisClient.create(RedisURI.Builder.redis(url,6379).withTimeout(Duration.ofMillis(6000)).withPassword(pass).withDatabase(1).build());
+        pool = ConnectionPoolSupport.createGenericObjectPool(() -> client.connect(), getGenericObjectPoolConfig());
+    }
 
     /**
      * 自增id
      */
     private static final String key = "sharding.id";
-
-    /**
-     * 创建redis客户端链接
-     */
-    private RedisClient client = RedisClient.create(RedisURI.Builder.redis("192.168.215.208",6379).withTimeout(Duration.ofMillis(6000)).withPassword("123456").withDatabase(1).build());
-    private GenericObjectPool<StatefulRedisConnection<String, String>> pool = ConnectionPoolSupport.createGenericObjectPool(() -> client.connect(), getGenericObjectPoolConfig());
 
     /**
      * 获取redis链接

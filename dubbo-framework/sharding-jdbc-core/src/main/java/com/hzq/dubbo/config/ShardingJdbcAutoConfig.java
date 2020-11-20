@@ -6,7 +6,9 @@ import io.shardingsphere.api.config.rule.TableRuleConfiguration;
 import io.shardingsphere.api.config.strategy.InlineShardingStrategyConfiguration;
 import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
+import lombok.Data;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,23 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Configuration
 public class ShardingJdbcAutoConfig {
+    @Value("${jdbc.driver}")
+    private String driver;
+
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Value("${jdbc.name}")
+    private String name;
+
+    @Value("${jdbc.pass}")
+    private String pass;
+
+    @Value("${redis.url}")
+    private String redisUrl;
+
+    @Value("${redis.pass}")
+    private String redisPass;
 
     //    @Deprecated
     public DataSource sample() throws SQLException {
@@ -77,10 +96,10 @@ public class ShardingJdbcAutoConfig {
         // 配置第一个数据源
         //org.apache.commons.dbcp.BasicDataSource
         BasicDataSource dataSource1 = new BasicDataSource();
-        dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://192.168.215.208:3306/hzq-demo");
-        dataSource1.setUsername("root");
-        dataSource1.setPassword("123456");
+        dataSource1.setDriverClassName(driver);
+        dataSource1.setUrl(url);
+        dataSource1.setUsername(name);
+        dataSource1.setPassword(pass);
         dataSourceMap.put("demo", dataSource1);
 
         // 配置第二个数据源
@@ -98,7 +117,7 @@ public class ShardingJdbcAutoConfig {
         orderTableRuleConfig.setActualDataNodes("demo.user_${1..3}");
         //设置分布式id获取方式
         orderTableRuleConfig.setKeyGeneratorColumnName("id");
-        orderTableRuleConfig.setKeyGenerator(new MyKeyGenerator());
+        orderTableRuleConfig.setKeyGenerator(new MyKeyGenerator(redisUrl,redisPass));
 
         // 配置分库 + 分表策略
 //        orderTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 2}"));
