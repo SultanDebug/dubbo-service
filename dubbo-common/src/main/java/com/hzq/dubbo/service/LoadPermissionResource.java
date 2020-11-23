@@ -8,6 +8,7 @@ import com.hzq.dubbo.dto.Permission;
 import com.hzq.dubbo.dto.PermissionDTO;
 import com.sun.org.apache.bcel.internal.generic.ATHROW;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +34,9 @@ import java.util.Objects;
 @Slf4j
 public class LoadPermissionResource implements CommandLineRunner {
 
+    @Value("promission.pkg")
+    private String pkg;
+
     private List<String> classes = new ArrayList<>();
 
     /**
@@ -45,7 +50,7 @@ public class LoadPermissionResource implements CommandLineRunner {
     */
     @Override
     public void run(String... args) throws Exception {
-        String pkg = "com.hzq.dubbo.bussiness.controller";
+//        String pkg = "com.hzq.dubbo.bussiness.controller";
 
         scan(pkg);
         getData();
@@ -62,7 +67,11 @@ public class LoadPermissionResource implements CommandLineRunner {
      * @date 2020/10/21 11:47
     */
     private void scan(String pkg) throws ClassNotFoundException {
-        String path = Objects.requireNonNull(this.getClass().getClassLoader().getResource(pkg.replaceAll("\\.", "/"))).getPath();
+        URL resource = this.getClass().getClassLoader().getResource(pkg.replaceAll("\\.", "/"));
+        if(resource == null){
+            return;
+        }
+        String path = resource.getPath();
         File file = new File(path);
         for (File listFile : file.listFiles()) {
             if (listFile.isFile()) {
@@ -85,24 +94,25 @@ public class LoadPermissionResource implements CommandLineRunner {
      * @date 2020/10/21 11:47
     */
     private void getData() throws ClassNotFoundException, IOException {
-        if (CollectionUtils.isEmpty(classes)) {
-            return;
-        }
         List<PermissionDTO> permissionDTOS = new ArrayList<>();
-        for (String aClass : classes) {
-            Class<?> aClass1 = Class.forName(aClass);
-            if(aClass1.isAnnotationPresent(ParentKey.class)){
-                ParentKey parent = aClass1.getAnnotation(ParentKey.class);
-                Method[] declaredMethods = aClass1.getDeclaredMethods();
-                for (Method declaredMethod : declaredMethods) {
-                    if(declaredMethod.isAnnotationPresent(Auth.class)){
-                        Auth annotation = declaredMethod.getAnnotation(Auth.class);
-                        PermissionDTO permissionDTO = new PermissionDTO();
-                        permissionDTO.setCode(parent.code()+"."+annotation.code());
-                        permissionDTO.setName(annotation.name());
-                        permissionDTO.setParentCode(parent.code());
-                        permissionDTO.setType(PermissionDTO.defaultType);
-                        permissionDTOS.add(permissionDTO);
+        if (CollectionUtils.isEmpty(classes)) {
+            log.info("未配置注解式权限数据");
+        }else{
+            for (String aClass : classes) {
+                Class<?> aClass1 = Class.forName(aClass);
+                if(aClass1.isAnnotationPresent(ParentKey.class)){
+                    ParentKey parent = aClass1.getAnnotation(ParentKey.class);
+                    Method[] declaredMethods = aClass1.getDeclaredMethods();
+                    for (Method declaredMethod : declaredMethods) {
+                        if(declaredMethod.isAnnotationPresent(Auth.class)){
+                            Auth annotation = declaredMethod.getAnnotation(Auth.class);
+                            PermissionDTO permissionDTO = new PermissionDTO();
+                            permissionDTO.setCode(parent.code()+"."+annotation.code());
+                            permissionDTO.setName(annotation.name());
+                            permissionDTO.setParentCode(parent.code());
+                            permissionDTO.setType(PermissionDTO.defaultType);
+                            permissionDTOS.add(permissionDTO);
+                        }
                     }
                 }
             }

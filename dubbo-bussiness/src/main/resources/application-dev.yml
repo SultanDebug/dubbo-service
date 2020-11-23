@@ -8,12 +8,12 @@ config:
 
 jdbc:
   driver: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://192.168.213.188:3306/hzq-demo
+  url: jdbc:mysql://192.168.214.59:3306/hzq-demo
   name: root
   pass: 123456
 
 redis:
-  url: 192.168.213.188
+  url: 192.168.214.59
   pass: 123456
 
 sharding:

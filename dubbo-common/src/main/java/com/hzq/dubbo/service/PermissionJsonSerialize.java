@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hzq.dubbo.dto.Permission;
 import com.hzq.dubbo.dto.PermissionDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @date 2020/10/16 16:50
  */
+@Slf4j
 public class PermissionJsonSerialize {
     /**
      * 读取json文件
@@ -36,6 +38,9 @@ public class PermissionJsonSerialize {
     */
     public static Permission parsJson() throws IOException {
         InputStream in = PermissionJsonSerialize.class.getResourceAsStream("/permission/menu.json");
+        if(in==null){
+            return null;
+        }
         byte[] bytes = new byte[1024];
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int pos = 0;
@@ -117,8 +122,17 @@ public class PermissionJsonSerialize {
 
         //获取json
         Permission permission = PermissionJsonSerialize.parsJson();
+        if(permission == null){
+            log.info("未加载json数据");
+            return null;
+        }
 
         List<PermissionDTO> menus = permission.getMenus();
+
+        if(menus == null){
+            log.info("未配置菜单数据");
+            return permission;
+        }
 
         //list  组装父code
         List<PermissionDTO> list = new ArrayList<>();
