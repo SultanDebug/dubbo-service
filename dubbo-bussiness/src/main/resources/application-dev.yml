@@ -16,6 +16,13 @@ redis:
   url: 192.168.214.59
   pass: 123456
 
+####sentinel限流控制台心跳地址
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+
 sharding:
   jdbc:
 #    datasource:

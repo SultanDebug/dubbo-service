@@ -1,14 +1,22 @@
 package com.hzq.dubbo.bussiness.controller;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.hzq.dubbo.User;
 import com.hzq.dubbo.aop.ResultResponse;
 import com.hzq.dubbo.bussiness.service.BusUserInfoService;
 import com.hzq.dubbo.bussiness.service.BusUserService;
 import com.hzq.dubbo.provider.ProviderInterface;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * mybatisplus测试
@@ -18,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements InitializingBean {
 
     @Autowired
     private BusUserService busUserService;
@@ -52,6 +60,27 @@ public class UserController {
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(@RequestParam("id") Integer id){
         return ResultResponse.success(busUserService.getById(id));
+    }
+
+    /**
+     * sentinel 代码限流规则
+     *
+     * @param
+     * @return
+     * @author 黄震强
+     * @version 1.0.0
+     * @date 2020/11/23 18:15
+    */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        List<FlowRule> rules = new ArrayList<>();
+        FlowRule rule = new FlowRule("/user/getUser");
+        // set limit qps to 20
+        rule.setCount(1);
+        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+        rule.setLimitApp("default");
+        rules.add(rule);
+        FlowRuleManager.loadRules(rules);
     }
 
     /**
