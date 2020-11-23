@@ -34,7 +34,7 @@ import java.util.Objects;
 @Slf4j
 public class LoadPermissionResource implements CommandLineRunner {
 
-    @Value("promission.pkg")
+    @Value("${promission.pkg}")
     private String pkg;
 
     private List<String> classes = new ArrayList<>();

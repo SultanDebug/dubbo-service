@@ -45,6 +45,8 @@ spring:
 hzq:
   mybatis:
     enable: false
+promission:
+  pkg: com.hzq.dubbo.controller
 ---
 spring:
   profiles: main
