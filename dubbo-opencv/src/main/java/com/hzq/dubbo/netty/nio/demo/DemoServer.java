@@ -37,6 +37,47 @@ public class DemoServer {
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
+        while (true){
+            int select = selector.select();
+            if(select == 0){
+                continue;
+            }
+            Set<SelectionKey> selectionKeys = selector.selectedKeys();
+            Iterator<SelectionKey> iterator = selectionKeys.iterator();
+            while (iterator.hasNext()) {
+                SelectionKey selectionKey = iterator.next();
+                if(selectionKey.isAcceptable()){
+                    ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
+                    SocketChannel accept = channel.accept();
+                    accept.configureBlocking(false);
+                    accept.register(selector,SelectionKey.OP_READ);
+                    System.out.println("服务端可读");
+                }else if(selectionKey.isReadable()){
+                    SocketChannel channel = (SocketChannel) selectionKey.channel();
+                    //读取数据
+                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                    int size = channel.read(byteBuffer);
+                    if(size>0){
+                        String s = new String(byteBuffer.array());
+                        System.out.println("服务端收到消息："+s);
+                    }
+
+                    //注册写事件
+                    channel.register(selector,SelectionKey.OP_WRITE);
+                    System.out.println("服务端可写");
+                }else if(selectionKey.isWritable()){
+                    SocketChannel channel = (SocketChannel) selectionKey.channel();
+                    System.out.println("输入：");
+                    Scanner scanner = new Scanner(System.in);
+                    String ret = scanner.nextLine();
+                    channel.write(ByteBuffer.wrap(ret.getBytes()));
+                    channel.register(selector,SelectionKey.OP_READ);
+                    System.out.println("服务端写完可读");
+                }
+                iterator.remove();
+            }
+        }
+
         /*ExecutorService executor =
                 new ThreadPoolExecutor(2,
                         2,
@@ -44,7 +85,7 @@ public class DemoServer {
                         TimeUnit.MILLISECONDS,
                         new LinkedBlockingDeque<>());*/
 
-        Thread t1 = new Thread (() -> {
+        /*Thread t1 = new Thread (() -> {
             while (true) {
                 try {
                     int select = selector.select();
@@ -117,48 +158,9 @@ public class DemoServer {
         });
 
         t1.start();
-        t2.start();
+        t2.start();*/
 
-        /*while (true){
-            int select = selector.select();
-            if(select == 0){
-                continue;
-            }
-            Set<SelectionKey> selectionKeys = selector.selectedKeys();
-            Iterator<SelectionKey> iterator = selectionKeys.iterator();
-            while (iterator.hasNext()) {
-                SelectionKey selectionKey = iterator.next();
-                if(selectionKey.isAcceptable()){
-                    ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
-                    SocketChannel accept = channel.accept();
-                    accept.configureBlocking(false);
-                    accept.register(selector,SelectionKey.OP_READ);
-                    System.out.println("服务端可读");
-                }else if(selectionKey.isReadable()){
-                    SocketChannel channel = (SocketChannel) selectionKey.channel();
-                    //读取数据
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    int size = channel.read(byteBuffer);
-                    if(size>0){
-                        String s = new String(byteBuffer.array());
-                        System.out.println("服务端收到消息："+s);
-                    }
 
-                    //注册写事件
-                    channel.register(selector,SelectionKey.OP_WRITE);
-                    System.out.println("服务端可写");
-                }else if(selectionKey.isWritable()){
-                    SocketChannel channel = (SocketChannel) selectionKey.channel();
-                    System.out.println("输入：");
-                    Scanner scanner = new Scanner(System.in);
-                    String ret = scanner.nextLine();
-                    channel.write(ByteBuffer.wrap(ret.getBytes()));
-                    channel.register(selector,SelectionKey.OP_READ);
-                    System.out.println("服务端写完可读");
-                }
-                iterator.remove();
-            }
-        }*/
 
 
     }
