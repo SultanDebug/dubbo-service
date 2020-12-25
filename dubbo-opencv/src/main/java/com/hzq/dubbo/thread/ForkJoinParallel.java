@@ -19,6 +19,60 @@ import java.util.List;
  * @date 2020/11/4 17:00
  */
 public class ForkJoinParallel {
+
+    public static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+
+    /*public static void main(String[] args) {
+        parallelThread();
+    }*/
+
+    public static void parallelThread(){
+        List<UserInfo> list = new ArrayList<>();
+        for (int i=0;i<10;i++){
+            UserInfo userInfo  = new UserInfo();
+            userInfo.setChName(i+"");
+            userInfo.setName(i+"");
+            list.add(userInfo);
+        }
+
+        /*并行流*/
+        UserInfo.setUser("hzq");
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+        list.parallelStream().forEach(o->{
+            //UserInfo.setUser(Thread.currentThread().getId()+"");
+            System.out.println("并行流线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+        });
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+
+        /*普通线程*/
+        UserInfo.setUser("sultan");
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+        for (int i=0;i<10;i++){
+            int k = i;
+            Thread thread = new Thread(()->{
+                //UserInfo.setUser(k+"");
+                System.out.println("thread线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+            });
+            thread.start();
+        }
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+UserInfo.getUser());
+
+        /*普通类型线程变量*/
+        threadLocal.set("sultan");
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+threadLocal.get());
+        for (int i=0;i<10;i++){
+            int k = i;
+            Thread thread = new Thread(()->{
+                //UserInfo.setUser(k+"");
+                System.out.println("thread线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+threadLocal.get());
+            });
+            thread.start();
+        }
+        System.out.println("main线程信息：id："+Thread.currentThread().getId()+"--name："+Thread.currentThread().getName()+"--user:"+threadLocal.get());
+
+    }
+
+    //并发测试
     public static void parallelTest() {
         List<UserInfo> list = new ArrayList<>();
 
