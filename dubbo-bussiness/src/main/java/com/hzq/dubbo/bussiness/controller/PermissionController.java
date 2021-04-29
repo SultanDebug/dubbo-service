@@ -10,10 +10,7 @@ import com.hzq.dubbo.dto.ProcessDTO;
 import com.hzq.dubbo.service.PermissionJsonSerialize;
 import com.hzq.dubbo.service.ProcessService;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,14 +87,14 @@ public class PermissionController {
      * @version 1.0.0
      * @date 2020/10/21 11:51
     */
-    @GetMapping("/annoProcess")
+    @PostMapping("/annoProcess")
     @Auth(code = "lisi",name = "李四")
-    public ResultResponse<Object> annoProcess() throws IOException, InstantiationException, IllegalAccessException {
+    public ResultResponse<Object> annoProcess(@RequestBody ProcessDTO processDTO) throws IOException, InstantiationException, IllegalAccessException {
         ProcessDTO dto = new ProcessDTO();
         dto.setId("1");
         dto.setName("sultan");
 
-        ProcessService.process(dto);
-        return ResultResponse.success(dto);
+//        ProcessService.process(dto);
+        return ResultResponse.success(processDTO);
     }
 }

@@ -17,4 +17,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommonProcess {
     Class<? extends ProcessInterface> clazz() default ProcessDefault.class;
+
+    String beanName() default "defaultProcess";
 }

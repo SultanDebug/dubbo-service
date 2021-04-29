@@ -16,6 +16,8 @@ import lombok.Data;
 public class ProcessDTO {
     private String id;
 
-    @CommonProcess(clazz = MyProcess.class)
+    @CommonProcess(clazz = MyProcess.class,beanName = "myProcess")
     private String name;
+
+    private String age;
 }

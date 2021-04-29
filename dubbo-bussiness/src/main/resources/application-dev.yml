@@ -8,12 +8,12 @@ config:
 
 jdbc:
   driver: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://192.168.214.59:3306/hzq-demo
+  url: jdbc:mysql://192.168.10.131:3306/hzq-demo
   name: root
   pass: 123456
 
 redis:
-  url: 192.168.214.59
+  url: 192.168.10.131
   pass: 123456
 
 ####sentinel限流控制台心跳地址
@@ -21,7 +21,7 @@ spring:
   cloud:
     sentinel:
       transport:
-        dashboard: localhost:8080
+        dashboard: localhost:9987
 
 sharding:
   jdbc:

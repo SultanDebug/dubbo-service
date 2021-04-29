@@ -8,6 +8,7 @@ import com.hzq.dubbo.util.AsynCallUtil;
 import com.hzq.dubbo.util.DefaultCallable;
 import com.hzq.dubbo.util.DefaultThreadFactory;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -77,5 +78,26 @@ public class CommonTest
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    @Test
+    public void copy(){
+        CopyDto copyDto = new CopyDto();
+        copyDto.setI(3);
+        CopyVo vo = new CopyVo();
+        vo.setVo("111");
+        copyDto.setVo(vo);
+
+        /*CopyDto copy = new CopyDto();
+        BeanUtils.copyProperties(copyDto,copy);*/
+
+        CopyDto copy = null;
+
+
+        copy.getVo().setVo("222");
+
+        System.out.println(copyDto);
     }
 }
