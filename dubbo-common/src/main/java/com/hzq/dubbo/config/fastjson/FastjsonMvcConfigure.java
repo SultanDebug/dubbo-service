@@ -1,11 +1,10 @@
 
-package com.hzq.dubbo.config;
+package com.hzq.dubbo.config.fastjson;
 
-import com.alibaba.fastjson.serializer.SerializeFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.hzq.dubbo.service.FastJsonSerialize;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -13,7 +12,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,8 +21,9 @@ import java.util.List;
  * @version 1.0.0
  * @date 2021/4/29 16:13
  */
-@Configuration
-public class SpringMvcConfigure implements WebMvcConfigurer {
+//@Configuration
+@Slf4j
+public class FastjsonMvcConfigure implements WebMvcConfigurer {
     @Autowired
     private FastJsonSerialize serialize;
 
@@ -33,6 +32,7 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        log.info("fastjson mvc 配置加载");
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(//    输出key是包含双引号

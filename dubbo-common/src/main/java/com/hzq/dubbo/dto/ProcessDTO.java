@@ -5,6 +5,9 @@ import com.hzq.dubbo.annotation.CommonProcess;
 import com.hzq.dubbo.interfaces.MyProcess;
 import lombok.Data;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 字段注解式修改
  *
@@ -20,4 +23,8 @@ public class ProcessDTO {
     private String name;
 
     private String age;
+
+    private List<ProcessDTO> list;
+
+    private Map<String , ProcessDTO> map;
 }

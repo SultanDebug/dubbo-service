@@ -1,18 +1,14 @@
 
-package com.hzq.dubbo.config;
+package com.hzq.dubbo.config.fastjson;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.hzq.dubbo.service.FastJsonSerialize;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hzq.dubbo.config.fastjson.FastJsonSerialize;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

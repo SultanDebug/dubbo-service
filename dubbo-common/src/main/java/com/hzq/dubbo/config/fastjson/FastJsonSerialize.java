@@ -1,5 +1,5 @@
 
-package com.hzq.dubbo.service;
+package com.hzq.dubbo.config.fastjson;
 
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.ObjectSerializer;

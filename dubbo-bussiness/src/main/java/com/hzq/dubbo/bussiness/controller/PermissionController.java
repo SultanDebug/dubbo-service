@@ -13,10 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -94,7 +91,25 @@ public class PermissionController {
         dto.setId("1");
         dto.setName("sultan");
 
+        ProcessDTO dto1 = new ProcessDTO();
+        dto1.setId("2");
+        dto1.setName("sultan");
+
+        ProcessDTO dto2 = new ProcessDTO();
+        dto2.setId("3");
+        dto2.setName("sultan");
+
+        dto.setList(Arrays.asList(dto1,dto2));
+
+        ProcessDTO dto3 = new ProcessDTO();
+        dto3.setId("4");
+        dto3.setName("sultan");
+
+        Map<String ,ProcessDTO> map = new HashMap<>();
+        map.put(dto3.getId(),dto3);
+        dto.setMap(map);
+
 //        ProcessService.process(dto);
-        return ResultResponse.success(processDTO);
+        return ResultResponse.success(dto);
     }
 }
