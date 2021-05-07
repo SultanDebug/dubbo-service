@@ -5,8 +5,10 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hzq.dubbo.User;
 import com.hzq.dubbo.aop.ResultResponse;
+import com.hzq.dubbo.bussiness.dto.UserPageRequest;
 import com.hzq.dubbo.bussiness.service.BusUserInfoService;
 import com.hzq.dubbo.bussiness.service.BusUserService;
 import com.hzq.dubbo.provider.ProviderInterface;
@@ -60,6 +62,11 @@ public class UserController implements InitializingBean {
     @GetMapping("/getUser")
     public ResultResponse<User> getUser(@RequestParam("id") Integer id){
         return ResultResponse.success(busUserService.getById(id));
+    }
+
+    @PostMapping("/getAllUser")
+    public ResultResponse<IPage<User>> getAllUser(@RequestBody UserPageRequest request){
+        return ResultResponse.success(busUserService.getAllUserByPage(request));
     }
 
     /**

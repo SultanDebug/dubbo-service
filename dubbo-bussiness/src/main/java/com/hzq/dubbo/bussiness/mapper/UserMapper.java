@@ -2,6 +2,8 @@
 package com.hzq.dubbo.bussiness.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hzq.dubbo.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +17,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     User getUser(Integer id);
+    IPage<User> getAllUserByPage(Page<User> page);
     Integer updateUser(Integer id, String name);
 }

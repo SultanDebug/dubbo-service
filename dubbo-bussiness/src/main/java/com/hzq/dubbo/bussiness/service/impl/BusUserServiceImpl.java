@@ -1,7 +1,10 @@
 
 package com.hzq.dubbo.bussiness.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzq.dubbo.bussiness.dto.UserPageRequest;
 import com.hzq.dubbo.bussiness.mapper.UserMapper;
 import com.hzq.dubbo.bussiness.service.BusUserService;
 import com.hzq.dubbo.User;
@@ -23,5 +26,10 @@ public class BusUserServiceImpl extends ServiceImpl<UserMapper, User> implements
     @Override
     public User getById(Integer id) {
         return userMapper.getUser(id);
+    }
+
+    @Override
+    public IPage<User> getAllUserByPage(UserPageRequest request) {
+        return userMapper.getAllUserByPage(new Page<>(request.getCurr(),request.getSize()));
     }
 }

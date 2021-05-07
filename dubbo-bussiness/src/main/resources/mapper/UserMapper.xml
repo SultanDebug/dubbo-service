@@ -24,6 +24,10 @@
         select * from user where id=#{id}
     </select>
 
+    <select id="getAllUserByPage" resultType="com.hzq.dubbo.User" > <!--useCache="false" useCache="true"-->
+        select * from user order by id
+    </select>
+
     <update id="updateUser">
         update user set user_name = #{name} where id=#{id}
     </update>

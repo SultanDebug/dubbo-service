@@ -1,8 +1,10 @@
 
 package com.hzq.dubbo.bussiness.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hzq.dubbo.User;
+import com.hzq.dubbo.bussiness.dto.UserPageRequest;
 
 /**
  * 手动mybatis代码
@@ -13,4 +15,5 @@ import com.hzq.dubbo.User;
  */
 public interface BusUserService extends IService<User> {
     User getById(Integer id);
+    IPage<User> getAllUserByPage(UserPageRequest request);
 }

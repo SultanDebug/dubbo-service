@@ -14,8 +14,6 @@
     <artifactId>consumer-common</artifactId>
 
     <name>consumer-common</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
 
     <dependencies>
         <!--公共依赖-->
@@ -25,11 +23,11 @@
             <version>${my-version}</version>
         </dependency>
         <!--框架公共依赖-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.hzq.dubbo</groupId>
             <artifactId>framework-common</artifactId>
             <version>${my-version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>

@@ -14,4 +14,12 @@
     <packaging>jar</packaging>
     <name>hzq-demo</name>
 
+    <dependencies>
+        <!--<dependency>
+            <groupId>com.hzq.dubbo</groupId>
+            <artifactId>dubbo-common</artifactId>
+            <version>${my-version}</version>
+        </dependency>-->
+    </dependencies>
+
 </project>
