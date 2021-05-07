@@ -2,7 +2,6 @@
 package com.hzq.dubbo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hzq.dubbo.annotation.CommonProcess;
 import lombok.Data;
 
 import java.io.Serializable;
