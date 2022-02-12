@@ -19,6 +19,7 @@ import java.util.stream.Stream;
  */
 public class DataStructureMain {
     public static void main(String[] args) {
+        //测试提交
         /*insection sort*/
         /*int[] ins = {5,8,4,1,6,9,3,7,2};
         System.out.println(JSONObject.toJSONString(InsectionSort.sortASC(ins)));
