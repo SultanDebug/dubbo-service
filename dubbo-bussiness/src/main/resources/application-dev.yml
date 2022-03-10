@@ -8,13 +8,13 @@ config:
 
 jdbc:
   driver: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://192.168.50.51:3306/mydb?useUnicode=true&characterEncoding=UTF-8
+  url: jdbc:mysql://192.168.92.129:3306/mydb?useUnicode=true&characterEncoding=UTF-8
   name: root
   pass: 123456
 
 redis:
-  url: 192.168.50.51
-  pass: 123456
+  url: 192.168.92.129
+  pass:
 
 sharding:
   jdbc:

@@ -16,10 +16,10 @@ dubbo:
 #    address: zookeeper://192.168.215.208:2181
     #nacos注册中心
 #    address: nacos://192.168.215.208:8848
-    address: nacos://192.168.50.51:8848
+    address: nacos://192.168.92.129:8848
     parameters:
 #      namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
-      namespace: 2cc1006d-c1d5-4cdd-9505-715162ba3863
+      namespace: 77f3c6bc-7c90-41b5-8c69-e3952a2d201f
     subscribe: true
     check: false
 
@@ -43,9 +43,9 @@ spring:
     nacos:
       discovery:
 #        server-addr: 192.168.215.208:8848
-        server-addr: 192.168.50.51:8848
+        server-addr: 192.168.92.129:8848
 #        namespace: 5eef8be7-6fb7-41bc-9704-da6f5429356a
-        namespace: 2cc1006d-c1d5-4cdd-9505-715162ba3863
+        namespace: 77f3c6bc-7c90-41b5-8c69-e3952a2d201f
 #  mvc:
 #    static-path-pattern: /static/**
 #  resources:
@@ -56,6 +56,8 @@ hzq:
   enable: true
   name: sultan
   age: 18
+promission:
+  pkg: com.hzq.dubbo.bussiness.controller
 ---
 spring:
   profiles: main
@@ -107,7 +109,7 @@ spring:
     #      url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&autoReconnect=true
     url: jdbc:mysql://${spring.datasource.ip}:${spring.datasource.port}/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
 #    ip: 192.168.215.208
-    ip: 192.168.50.51
+    ip: 192.168.92.129
     port: 3306
 #    database: hzq-demo
     database: mydb
